@@ -4,18 +4,19 @@
 
 ### Completed
 
-- Created `/backend` with a minimal FastAPI app structure and `/health` endpoint.
-- Configured CORS for local Vite frontend (`localhost:5173`).
-- Verified the backend starts with Uvicorn and `/health` works.
-- Implemented backend authentication (config, security, database, models, schemas, router).
-- Added `User` model and `POST /auth/register`, `POST /auth/login`, protected `GET /auth/me`.
+- Created `/backend` with FastAPI, `/health`, CORS, and verified local run.
+- Implemented authentication (`/auth/register`, `/auth/login`, `/auth/me`).
+- Added demo data and CSV analysis (`GET /demo-data`, `POST /upload-csv`).
+- Created `csv_service`, `demo_data_service`, data schemas, and data router.
 - Updated `requirements.txt`, `backend/.env.example`, and `backend/.gitignore`.
 
 ### Decisions
 
 - SQLite database file stored as `datawhisper.db` in the backend folder.
 - Register and login return user data plus a JWT bearer token.
-- Auth errors use clear English API messages.
+- Demo and CSV upload return the same English-key business summary shape.
+- CSV upload requires Bearer authentication; demo data is public.
+- Auth errors in English; CSV validation errors in Turkish.
 - Use PowerShell-compatible command chaining (`;`) for local backend run scripts on Windows.
 
 ### Problems
@@ -24,8 +25,8 @@
 
 ### Next Step
 
-- Implement demo data and CSV upload endpoints.
-- Set up the React frontend with register/login flow.
+- Implement AI question analysis endpoint.
+- Set up the React frontend dashboard.
 
 ## 2026-05-21
 
