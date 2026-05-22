@@ -1,5 +1,28 @@
 # DataWhisper Progress Log
 
+## 2026-05-22
+
+### Completed
+
+- Created `/backend` with a minimal FastAPI app structure.
+- Added `app/main.py` with `/health` endpoint.
+- Configured CORS for local Vite frontend (`localhost:5173`).
+- Added `requirements.txt` with FastAPI and Uvicorn.
+
+### Decisions
+
+- Kept the initial backend scope minimal: no auth, routers, or database yet.
+- CORS allows the default Vite dev server origins only.
+
+### Problems
+
+- No major problem.
+
+### Next Step
+
+- Implement authentication (register, login, JWT).
+- Add backend folder modules (routers, schemas, services) as features grow.
+
 ## 2026-05-21
 
 ### Completed
