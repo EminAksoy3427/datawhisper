@@ -4,24 +4,28 @@
 
 ### Completed
 
-- Created `/backend` with a minimal FastAPI app structure.
-- Added `app/main.py` with `/health` endpoint.
+- Created `/backend` with a minimal FastAPI app structure and `/health` endpoint.
 - Configured CORS for local Vite frontend (`localhost:5173`).
-- Added `requirements.txt` with FastAPI and Uvicorn.
+- Verified the backend starts with Uvicorn and `/health` works.
+- Implemented backend authentication (config, security, database, models, schemas, router).
+- Added `User` model and `POST /auth/register`, `POST /auth/login`, protected `GET /auth/me`.
+- Updated `requirements.txt`, `backend/.env.example`, and `backend/.gitignore`.
 
 ### Decisions
 
-- Kept the initial backend scope minimal: no auth, routers, or database yet.
-- CORS allows the default Vite dev server origins only.
+- SQLite database file stored as `datawhisper.db` in the backend folder.
+- Register and login return user data plus a JWT bearer token.
+- Auth errors use clear English API messages.
+- Use PowerShell-compatible command chaining (`;`) for local backend run scripts on Windows.
 
 ### Problems
 
-- No major problem.
+- First server start attempt failed because PowerShell does not support `&&`; fixed by rerunning with `;`.
 
 ### Next Step
 
-- Implement authentication (register, login, JWT).
-- Add backend folder modules (routers, schemas, services) as features grow.
+- Implement demo data and CSV upload endpoints.
+- Set up the React frontend with register/login flow.
 
 ## 2026-05-21
 
