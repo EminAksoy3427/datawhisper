@@ -1,0 +1,120 @@
+---
+alwaysApply: true
+---
+
+---
+description: DataWhisper project overview and core development rules
+globs: **/*
+alwaysApply: true
+---
+
+# DataWhisper Project Overview
+
+DataWhisper is an AI-powered business intelligence assistant for small businesses.
+
+The product helps small e-commerce sellers, boutique manufacturers, and retailers upload CSV business data, ask questions in Turkish, and receive AI-generated insights, charts, and actionable recommendations.
+
+## Core Product Goal
+
+Build a working full-stack MVP for the bootcamp final project.
+
+Main demo flow:
+
+Login/Register → Dashboard → Demo Data or CSV Upload → Business Summary → Turkish Question → AI Insight → Chart → Recommendation → Business Health Score
+
+## Target Users
+
+- Small e-commerce sellers
+- Boutique manufacturers
+- Small retailers
+- Business owners using Excel/CSV files
+- Non-technical users who need simple business insights
+
+## Tech Stack
+
+Frontend:
+
+- React
+- Vite
+- TypeScript
+- Tailwind CSS
+- Recharts
+
+Backend:
+
+- FastAPI
+- Python
+- Pandas
+- SQLAlchemy
+- JWT authentication
+
+AI:
+
+- OpenAI API
+
+Database:
+
+- SQLite for development
+- PostgreSQL optional for deployment
+
+## Folder Structure
+
+Use this structure:
+
+- `/frontend` for the React app
+- `/backend` for the FastAPI app
+- `/prodocs` for project documentation
+- `README.md` for project overview and setup
+- `.env.example` for sample environment variables
+
+Do not mix frontend and backend code.
+
+## Product Rules
+
+- Keep the MVP simple and demo-focused.
+- Do not add features outside the MVP unless explicitly requested.
+- Prioritize a working end-to-end flow over advanced features.
+- The AI response language must be Turkish.
+- The UI should be simple, clean, and beginner-friendly.
+- Avoid complex BI terminology.
+
+## Security Rules
+
+- Never hardcode API keys.
+- Never commit `.env` files.
+- Store secrets in environment variables.
+- Passwords must be hashed.
+- Protected backend endpoints must require JWT authentication.
+
+## Coding Rules
+
+- Write small, readable files.
+- Use clear function and component names.
+- Prefer simple solutions over complex architecture.
+- Add basic error handling.
+- Keep responses from backend structured and predictable.
+- Update `/prodocs/Progress.md` after major changes.
+
+## MVP Scope
+
+Included:
+
+- Landing page
+- Register/Login
+- Dashboard
+- Demo data
+- CSV upload
+- Business summary
+- Turkish natural language question input
+- AI-generated insight
+- Charts
+- Business Health Score
+
+Out of scope:
+
+- Payment system
+- Real Shopify/Trendyol integration
+- Google login
+- Password reset
+- Multi-company accounts
+- Advanced dashboard builder
