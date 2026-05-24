@@ -30,7 +30,7 @@ def create_access_token(user_id: int) -> str:
     payload = {"sub": str(user_id), "exp": int(expire.timestamp())}
     return jwt.encode(
         payload,
-        settings.jwt_secret,
+        settings.jwt_secret_key,
         algorithm=settings.jwt_algorithm,
     )
 
@@ -40,7 +40,7 @@ def decode_access_token(token: str) -> int | None:
     try:
         payload = jwt.decode(
             token,
-            settings.jwt_secret,
+            settings.jwt_secret_key,
             algorithms=[settings.jwt_algorithm],
         )
     except JWTError:

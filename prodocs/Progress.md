@@ -8,6 +8,8 @@
 - Implemented authentication (`/auth/register`, `/auth/login`, `/auth/me`).
 - Added demo data and CSV analysis (`GET /demo-data`, `POST /upload-csv`).
 - Created `csv_service`, `demo_data_service`, data schemas, and data router.
+- Implemented AI analysis (`POST /ask`) with OpenAI and structured Turkish JSON response.
+- Created `ai_service`, analysis schemas, and analysis router.
 - Updated `requirements.txt`, `backend/.env.example`, and `backend/.gitignore`.
 
 ### Decisions
@@ -16,7 +18,8 @@
 - Register and login return user data plus a JWT bearer token.
 - Demo and CSV upload return the same English-key business summary shape.
 - CSV upload requires Bearer authentication; demo data is public.
-- Auth errors in English; CSV validation errors in Turkish.
+- Auth errors in English; CSV and AI user errors in Turkish where applicable.
+- `POST /ask` sends only `business_summary` to OpenAI, not raw CSV data.
 - Use PowerShell-compatible command chaining (`;`) for local backend run scripts on Windows.
 
 ### Problems
@@ -25,8 +28,8 @@
 
 ### Next Step
 
-- Implement AI question analysis endpoint.
 - Set up the React frontend dashboard.
+- Connect frontend to auth, data summary, and `/ask` endpoints.
 
 ## 2026-05-21
 

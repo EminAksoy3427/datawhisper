@@ -1,4 +1,8 @@
 .env
+*.env
+!.env.example
+!backend/.env.example
+backend/.env
 *.db
 __pycache__/
 *.pyc
