@@ -22,6 +22,7 @@
 - Connected dashboard to `GET /demo-data`, `POST /upload-csv`, `POST /ask`.
 - Added `MetricCard`, `ChartCard`, `QuestionBox`, `InsightCard`; metrics, category table, Recharts, Turkish errors.
 - `business_summary` kept in state; question disabled until data is loaded.
+- Added frontend Business Health Score (`HealthScoreCard`) from loaded summary metrics.
 
 ## 2026-05-22
 

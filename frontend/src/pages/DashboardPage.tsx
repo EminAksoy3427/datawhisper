@@ -6,6 +6,7 @@ import type { BusinessSummary } from '@/api/types/data'
 import { ChartCard } from '@/components/ChartCard'
 import { FormAlert } from '@/components/FormAlert'
 import { InsightCard } from '@/components/InsightCard'
+import { HealthScoreCard } from '@/components/HealthScoreCard'
 import { MetricCard } from '@/components/MetricCard'
 import { Navbar } from '@/components/Navbar'
 import { QuestionBox } from '@/components/QuestionBox'
@@ -211,6 +212,12 @@ export function DashboardPage() {
             </div>
           )}
         </section>
+
+        {businessSummary && (
+          <section className="mb-8">
+            <HealthScoreCard summary={businessSummary} />
+          </section>
+        )}
 
         {businessSummary && businessSummary.category_summary.length > 0 && (
           <section className="mb-8 overflow-x-auto rounded-[var(--radius-dw)] border border-dw-border bg-dw-card p-6 shadow-sm">
