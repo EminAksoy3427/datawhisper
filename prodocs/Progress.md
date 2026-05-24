@@ -1,5 +1,19 @@
 # DataWhisper Progress Log
 
+## 2026-05-24
+
+### Completed
+
+- Created `/frontend` with Vite, React 19, and TypeScript.
+- Installed and configured Tailwind CSS v4 (`@tailwindcss/vite`) with DataWhisper design tokens.
+- Added `react-router-dom`, `axios`, and `recharts`.
+- Built placeholder pages: Landing, Login, Register, Dashboard; shared `Navbar` and `api/client.ts`.
+- Wired routes: `/`, `/login`, `/register`, `/dashboard` (no backend or auth yet).
+
+### Next Step
+
+- Connect auth, data summary, and `/ask` endpoints from the frontend.
+
 ## 2026-05-22
 
 ### Completed
