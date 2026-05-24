@@ -8,10 +8,15 @@ const ERROR_MESSAGES: Record<string, string> = {
 
 export function getApiErrorMessage(error: unknown): string {
   if (!axios.isAxiosError(error)) {
-    return 'Bir hata oluştu. Lütfen tekrar deneyin.'
+    return 'Beklenmeyen bir hata oluştu. Lütfen tekrar deneyin.'
   }
 
-  const detail = error.response?.data?.detail
+  if (!error.response) {
+    return 'Sunucuya ulaşılamadı. Backend’in çalıştığından ve adresin doğru olduğundan emin olun.'
+  }
+
+  const { status } = error.response
+  const detail = error.response.data?.detail
 
   if (typeof detail === 'string') {
     return ERROR_MESSAGES[detail] ?? detail
@@ -32,9 +37,21 @@ export function getApiErrorMessage(error: unknown): string {
     }
   }
 
-  if (error.response?.status === 401) {
+  if (status === 401) {
     return 'Oturumunuz sona erdi. Lütfen tekrar giriş yapın.'
   }
 
-  return 'Bir hata oluştu. Lütfen tekrar deneyin.'
+  if (status === 403) {
+    return 'Bu işlem için yetkiniz yok. Giriş yapmayı deneyin.'
+  }
+
+  if (status === 413) {
+    return 'Dosya çok büyük. Daha küçük bir CSV dosyası yükleyin.'
+  }
+
+  if (status >= 500) {
+    return 'Sunucu hatası oluştu. Biraz sonra tekrar deneyin.'
+  }
+
+  return 'İşlem tamamlanamadı. Lütfen bilgilerinizi kontrol edip tekrar deneyin.'
 }

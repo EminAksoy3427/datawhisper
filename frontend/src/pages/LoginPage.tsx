@@ -48,7 +48,8 @@ export function LoginPage() {
         <div className="w-full max-w-md rounded-[var(--radius-dw)] border border-dw-border bg-dw-card p-8 shadow-sm">
           <h1 className="mb-2 text-2xl font-bold text-dw-text">Giriş Yap</h1>
           <p className="mb-6 text-sm text-dw-muted">
-            Hesabınıza giriş yapın ve panele erişin.
+            Kayıtlı e-posta ve şifrenizle giriş yapın; ardından panelden veri
+            yükleyip analiz yapabilirsiniz.
           </p>
 
           {error && (

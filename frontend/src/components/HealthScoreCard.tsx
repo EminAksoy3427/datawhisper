@@ -50,7 +50,8 @@ export function HealthScoreCard({ summary }: HealthScoreCardProps) {
             İşletme Sağlık Skoru
           </h2>
           <p className="mt-1 text-sm text-dw-muted">
-            Mevcut verilerinize göre hesaplanan genel işletme durumu.
+            Gelir, kar, iade oranı ve veri miktarına göre 0–100 arası hesaplanır
+            (yalnızca ön bilgi amaçlıdır).
           </p>
         </div>
         <span

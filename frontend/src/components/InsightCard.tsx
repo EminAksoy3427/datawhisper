@@ -1,4 +1,5 @@
 import type { AnalysisResponse } from '@/api/types/analysis'
+import { LoadingSpinner } from '@/components/LoadingSpinner'
 import {
   getChartSuggestionLabel,
   getRiskBadgeClass,
@@ -13,24 +14,22 @@ type InsightCardProps = {
 export function InsightCard({ analysis, isLoading }: InsightCardProps) {
   return (
     <section className="rounded-[var(--radius-dw)] border border-dw-border bg-dw-card p-6 shadow-sm">
-      <h2 className="mb-4 text-lg font-semibold text-dw-text">
-        Yapay Zeka Yanıtı
+      <h2 className="mb-2 text-lg font-semibold text-dw-text">
+        Yapay Zeka Önerileri
       </h2>
+      <p className="mb-4 text-sm leading-relaxed text-dw-muted">
+        Aşağıdaki özet, içgörü ve öneriler yapay zeka tarafından üretilir. Karar
+        vermeden önce kendi iş bilginizle birlikte değerlendirin.
+      </p>
 
       {isLoading && (
-        <div className="flex items-center gap-3 text-sm text-dw-muted">
-          <div
-            className="h-5 w-5 animate-spin rounded-full border-2 border-dw-border border-t-dw-primary"
-            aria-hidden
-          />
-          Yanıt hazırlanıyor...
-        </div>
+        <LoadingSpinner message="Öneriler hazırlanıyor..." />
       )}
 
       {!isLoading && !analysis && (
-        <p className="text-sm text-dw-muted">
-          Veri yükleyip bir soru sorduğunuzda özet, içgörü ve öneriler burada
-          görünecek.
+        <p className="rounded-[var(--radius-dw)] border border-dashed border-dw-border bg-dw-bg px-4 py-6 text-center text-sm text-dw-muted">
+          Veri yükleyip bir soru gönderdiğinizde özet, içgörü, öneri ve risk
+          seviyesi burada görünür.
         </p>
       )}
 

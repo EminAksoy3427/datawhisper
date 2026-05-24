@@ -3,19 +3,19 @@ import { Navbar } from '@/components/Navbar'
 
 const features = [
   {
-    title: 'CSV Yükle',
+    title: 'CSV veya demo veri',
     description:
-      'Excel veya CSV dosyanızı yükleyin; satış ve stok verileriniz hazır olsun.',
+      'Kendi satış dosyanızı yükleyin veya hazır KOBİ örnek verisiyle hemen başlayın.',
   },
   {
-    title: 'Türkçe Soru Sor',
+    title: 'Türkçe soru sorun',
     description:
-      '“Bu ay en çok satan ürün hangisi?” gibi soruları doğal dilde sorun.',
+      '“Hangi ürün en çok gelir getiriyor?” gibi günlük dilde iş soruları sorun.',
   },
   {
-    title: 'Grafik ve Öneri',
+    title: 'Özet, grafik ve skor',
     description:
-      'Yapay zeka özetleri, grafikler ve işletme sağlık skoru alın.',
+      'Metrikler, grafikler, yapay zekâ önerileri ve işletme sağlık skoru tek panelde.',
   },
 ]
 
@@ -30,12 +30,12 @@ export function LandingPage() {
             Küçük işletmeler için yapay zeka asistanı
           </p>
           <h1 className="mb-4 text-3xl font-bold tracking-tight text-dw-text md:text-[32px]">
-            Verinizi yükleyin, Türkçe sorun, içgörü alın
+            CSV verinizi yükleyin, Türkçe sorun, içgörü alın
           </h1>
-          <p className="mx-auto mb-8 max-w-2xl text-base text-dw-muted">
-            DataWhisper; e-ticaret satıcıları ve küçük perakendeciler için
-            CSV verilerinden özet, grafik ve öneriler sunar. Teknik bilgi
-            gerekmez.
+          <p className="mx-auto mb-8 max-w-2xl text-base leading-relaxed text-dw-muted">
+            DataWhisper; e-ticaret satıcıları, butik üreticiler ve küçük
+            perakendeciler için tasarlandı. Excel/CSV dosyanızdan özet metrikler,
+            grafikler ve yapay zekâ destekli öneriler alın — teknik bilgi gerekmez.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
             <Link
@@ -71,7 +71,7 @@ export function LandingPage() {
       </main>
 
       <footer className="border-t border-dw-border py-6 text-center text-sm text-dw-muted">
-        © {new Date().getFullYear()} DataWhisper
+        © {new Date().getFullYear()} DataWhisper — Bootcamp MVP
       </footer>
     </div>
   )

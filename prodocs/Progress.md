@@ -13,7 +13,14 @@
 
 ### Next Step
 
-- Polish MVP demo flow and end-to-end testing.
+- Final demo rehearsal and deployment (optional).
+
+## 2026-05-24 (MVP polish)
+
+### Completed
+
+- Polished dashboard copy, section labels, helper texts, empty/loading states, and Turkish error messages.
+- Updated root `README.md` for setup, demo flow, and security notes.
 
 ## 2026-05-24 (dashboard data & AI)
 

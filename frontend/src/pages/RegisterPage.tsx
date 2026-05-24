@@ -59,7 +59,8 @@ export function RegisterPage() {
         <div className="w-full max-w-md rounded-[var(--radius-dw)] border border-dw-border bg-dw-card p-8 shadow-sm">
           <h1 className="mb-2 text-2xl font-bold text-dw-text">Kayıt Ol</h1>
           <p className="mb-6 text-sm text-dw-muted">
-            Yeni hesap oluşturun ve hemen panele geçin.
+            Ücretsiz hesap oluşturun. CSV yüklemek ve yapay zekâ soruları için
+            giriş yapmanız yeterlidir.
           </p>
 
           {error && (
