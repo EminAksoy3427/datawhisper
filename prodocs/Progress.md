@@ -13,7 +13,15 @@
 
 ### Next Step
 
-- Connect demo data, CSV upload, and `/ask` from the dashboard.
+- Polish MVP demo flow and end-to-end testing.
+
+## 2026-05-24 (dashboard data & AI)
+
+### Completed
+
+- Connected dashboard to `GET /demo-data`, `POST /upload-csv`, `POST /ask`.
+- Added `MetricCard`, `ChartCard`, `QuestionBox`, `InsightCard`; metrics, category table, Recharts, Turkish errors.
+- `business_summary` kept in state; question disabled until data is loaded.
 
 ## 2026-05-22
 
