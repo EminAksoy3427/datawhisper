@@ -1,4 +1,5 @@
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useAuth } from '@/context/AuthContext'
 
 function navLinkClass(isActive: boolean) {
   return isActive
@@ -8,6 +9,13 @@ function navLinkClass(isActive: boolean) {
 
 export function Navbar() {
   const { pathname } = useLocation()
+  const navigate = useNavigate()
+  const { isAuthenticated, user, logout } = useAuth()
+
+  function handleLogout() {
+    logout()
+    navigate('/login')
+  }
 
   return (
     <header className="border-b border-dw-border bg-dw-card">
@@ -26,21 +34,38 @@ export function Navbar() {
         </Link>
 
         <div className="flex flex-wrap items-center gap-5 text-sm">
-          <Link
-            to="/dashboard"
-            className={navLinkClass(pathname === '/dashboard')}
-          >
-            Panel
-          </Link>
-          <Link to="/login" className={navLinkClass(pathname === '/login')}>
-            Giriş Yap
-          </Link>
-          <Link
-            to="/register"
-            className="rounded-[var(--radius-dw)] bg-dw-primary px-4 py-2 font-medium text-white transition-colors hover:bg-blue-700"
-          >
-            Kayıt Ol
-          </Link>
+          {isAuthenticated ? (
+            <>
+              <Link
+                to="/dashboard"
+                className={navLinkClass(pathname === '/dashboard')}
+              >
+                Panel
+              </Link>
+              <span className="hidden text-dw-muted sm:inline">
+                Merhaba, {user?.name}
+              </span>
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="rounded-[var(--radius-dw)] border border-dw-border px-4 py-2 font-medium text-dw-text transition-colors hover:bg-dw-bg"
+              >
+                Çıkış Yap
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/login" className={navLinkClass(pathname === '/login')}>
+                Giriş Yap
+              </Link>
+              <Link
+                to="/register"
+                className="rounded-[var(--radius-dw)] bg-dw-primary px-4 py-2 font-medium text-white transition-colors hover:bg-blue-700"
+              >
+                Kayıt Ol
+              </Link>
+            </>
+          )}
         </div>
       </nav>
     </header>

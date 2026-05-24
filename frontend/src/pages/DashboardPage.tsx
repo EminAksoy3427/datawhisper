@@ -8,6 +8,7 @@ import {
   YAxis,
 } from 'recharts'
 import { Navbar } from '@/components/Navbar'
+import { useAuth } from '@/context/AuthContext'
 
 const sampleChartData = [
   { month: 'Oca', sales: 4200 },
@@ -24,6 +25,8 @@ const metrics = [
 ]
 
 export function DashboardPage() {
+  const { user } = useAuth()
+
   return (
     <div className="flex min-h-screen flex-col">
       <Navbar />
@@ -34,7 +37,8 @@ export function DashboardPage() {
             İşletme Paneli
           </h1>
           <p className="mt-1 text-sm text-dw-muted">
-            Örnek veriler — CSV yükleme ve yapay zeka analizi yakında bağlanacak.
+            Hoş geldiniz, {user?.name}. Örnek veriler — CSV ve yapay zeka
+            analizi yakında bağlanacak.
           </p>
         </div>
 

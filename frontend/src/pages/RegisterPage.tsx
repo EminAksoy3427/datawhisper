@@ -1,7 +1,56 @@
-import { Link } from 'react-router-dom'
+import { useState, type FormEvent } from 'react'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { FormAlert } from '@/components/FormAlert'
 import { Navbar } from '@/components/Navbar'
+import { AuthLoadingScreen } from '@/components/AuthLoadingScreen'
+import { useAuth } from '@/context/AuthContext'
 
 export function RegisterPage() {
+  const navigate = useNavigate()
+  const { register, isAuthenticated, isLoading } = useAuth()
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState<string | null>(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  if (isLoading) {
+    return <AuthLoadingScreen />
+  }
+
+  if (isAuthenticated) {
+    return <Navigate to="/dashboard" replace />
+  }
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    setError(null)
+
+    if (password.length < 6) {
+      setError('Şifre en az 6 karakter olmalıdır.')
+      return
+    }
+
+    setIsSubmitting(true)
+
+    try {
+      await register({
+        name: name.trim(),
+        email: email.trim(),
+        password,
+      })
+      navigate('/dashboard', { replace: true })
+    } catch (submitError) {
+      setError(
+        submitError instanceof Error
+          ? submitError.message
+          : 'Kayıt oluşturulamadı. Lütfen tekrar deneyin.',
+      )
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   return (
     <div className="flex min-h-screen flex-col">
       <Navbar />
@@ -10,13 +59,16 @@ export function RegisterPage() {
         <div className="w-full max-w-md rounded-[var(--radius-dw)] border border-dw-border bg-dw-card p-8 shadow-sm">
           <h1 className="mb-2 text-2xl font-bold text-dw-text">Kayıt Ol</h1>
           <p className="mb-6 text-sm text-dw-muted">
-            Yeni hesap oluşturun. (Bağlantı yakında eklenecek.)
+            Yeni hesap oluşturun ve hemen panele geçin.
           </p>
 
-          <form
-            className="space-y-4"
-            onSubmit={(event) => event.preventDefault()}
-          >
+          {error && (
+            <div className="mb-4">
+              <FormAlert message={error} />
+            </div>
+          )}
+
+          <form className="space-y-4" onSubmit={handleSubmit}>
             <div>
               <label
                 htmlFor="name"
@@ -27,8 +79,13 @@ export function RegisterPage() {
               <input
                 id="name"
                 type="text"
+                required
+                autoComplete="name"
+                value={name}
+                onChange={(event) => setName(event.target.value)}
                 placeholder="Adınız Soyadınız"
-                className="w-full rounded-[var(--radius-dw)] border border-dw-border px-3 py-2 text-sm outline-none focus:border-dw-primary focus:ring-2 focus:ring-blue-100"
+                disabled={isSubmitting}
+                className="w-full rounded-[var(--radius-dw)] border border-dw-border px-3 py-2 text-sm outline-none focus:border-dw-primary focus:ring-2 focus:ring-blue-100 disabled:opacity-60"
               />
             </div>
             <div>
@@ -41,8 +98,13 @@ export function RegisterPage() {
               <input
                 id="register-email"
                 type="email"
+                required
+                autoComplete="email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
                 placeholder="ornek@isletme.com"
-                className="w-full rounded-[var(--radius-dw)] border border-dw-border px-3 py-2 text-sm outline-none focus:border-dw-primary focus:ring-2 focus:ring-blue-100"
+                disabled={isSubmitting}
+                className="w-full rounded-[var(--radius-dw)] border border-dw-border px-3 py-2 text-sm outline-none focus:border-dw-primary focus:ring-2 focus:ring-blue-100 disabled:opacity-60"
               />
             </div>
             <div>
@@ -55,15 +117,22 @@ export function RegisterPage() {
               <input
                 id="register-password"
                 type="password"
-                placeholder="En az 8 karakter"
-                className="w-full rounded-[var(--radius-dw)] border border-dw-border px-3 py-2 text-sm outline-none focus:border-dw-primary focus:ring-2 focus:ring-blue-100"
+                required
+                minLength={6}
+                autoComplete="new-password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                placeholder="En az 6 karakter"
+                disabled={isSubmitting}
+                className="w-full rounded-[var(--radius-dw)] border border-dw-border px-3 py-2 text-sm outline-none focus:border-dw-primary focus:ring-2 focus:ring-blue-100 disabled:opacity-60"
               />
             </div>
             <button
               type="submit"
-              className="w-full rounded-[var(--radius-dw)] bg-dw-primary py-2.5 text-sm font-medium text-white hover:bg-blue-700"
+              disabled={isSubmitting}
+              className="w-full rounded-[var(--radius-dw)] bg-dw-primary py-2.5 text-sm font-medium text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
             >
-              Hesap Oluştur
+              {isSubmitting ? 'Hesap oluşturuluyor...' : 'Hesap Oluştur'}
             </button>
           </form>
 

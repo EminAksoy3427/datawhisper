@@ -8,11 +8,12 @@
 - Installed and configured Tailwind CSS v4 (`@tailwindcss/vite`) with DataWhisper design tokens.
 - Added `react-router-dom`, `axios`, and `recharts`.
 - Built placeholder pages: Landing, Login, Register, Dashboard; shared `Navbar` and `api/client.ts`.
-- Wired routes: `/`, `/login`, `/register`, `/dashboard` (no backend or auth yet).
+- Wired routes: `/`, `/login`, `/register`, `/dashboard`.
+- Connected auth to `POST /auth/register`, `POST /auth/login`, `GET /auth/me` via `AuthContext`, JWT in `localStorage`, protected `/dashboard`, logout in Navbar.
 
 ### Next Step
 
-- Connect auth, data summary, and `/ask` endpoints from the frontend.
+- Connect demo data, CSV upload, and `/ask` from the dashboard.
 
 ## 2026-05-22
 
