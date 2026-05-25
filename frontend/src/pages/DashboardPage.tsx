@@ -3,8 +3,10 @@ import { askQuestion } from '@/api/analysis'
 import { fetchDemoData, uploadCsv } from '@/api/data'
 import type { AnalysisResponse } from '@/api/types/analysis'
 import type { BusinessSummary } from '@/api/types/data'
+import { AnalysisStatusCard } from '@/components/AnalysisStatusCard'
 import { ChartCard } from '@/components/ChartCard'
 import { EmptyState } from '@/components/EmptyState'
+import { ExecutiveSummaryCard } from '@/components/ExecutiveSummaryCard'
 import { FormAlert } from '@/components/FormAlert'
 import { InsightCard } from '@/components/InsightCard'
 import { HealthScoreCard } from '@/components/HealthScoreCard'
@@ -12,8 +14,13 @@ import { LoadingSpinner } from '@/components/LoadingSpinner'
 import { MetricCard } from '@/components/MetricCard'
 import { Navbar } from '@/components/Navbar'
 import { QuestionBox } from '@/components/QuestionBox'
+import { QuestionTemplates } from '@/components/QuestionTemplates'
 import { useAuth } from '@/context/AuthContext'
 import { getApiErrorMessage } from '@/lib/apiError'
+import {
+  getCategoryRisk,
+  getCategoryRiskBadgeClass,
+} from '@/lib/categoryRisk'
 import { formatCurrency, formatNumber, formatPercent } from '@/lib/format'
 import { getColumnLabel } from '@/lib/labels'
 
@@ -198,11 +205,6 @@ export function DashboardPage() {
 
           {businessSummary && !isLoadingData && (
             <div className="mt-4 space-y-3">
-              <p className="text-sm font-medium text-dw-secondary">
-                ✓ {formatNumber(businessSummary.row_count)} satır başarıyla
-                analiz edildi.
-              </p>
-
               {businessSummary.detected_columns &&
                 Object.keys(businessSummary.detected_columns).length > 0 && (
                   <div className="rounded-[var(--radius-dw)] border border-dw-border bg-dw-bg p-4">
@@ -246,6 +248,13 @@ export function DashboardPage() {
             </div>
           )}
         </section>
+
+        {businessSummary && !isLoadingData && (
+          <section className="mb-8 grid gap-4 lg:grid-cols-2">
+            <AnalysisStatusCard summary={businessSummary} />
+            <ExecutiveSummaryCard summary={businessSummary} />
+          </section>
+        )}
 
         <section className="mb-8">
           <h2 className="mb-1 text-lg font-semibold text-dw-text">
@@ -313,39 +322,55 @@ export function DashboardPage() {
             <EmptyState description="Bu veri setinde kategori özeti bulunamadı." />
           ) : (
             <div className="overflow-x-auto rounded-[var(--radius-dw)] border border-dw-border bg-dw-card p-6 shadow-sm">
-              <table className="w-full min-w-[640px] text-left text-sm">
+              <table className="w-full min-w-[720px] text-left text-sm">
                 <thead>
                   <tr className="border-b border-dw-border text-dw-muted">
                     <th className="pb-2 pr-4 font-medium">Kategori</th>
                     <th className="pb-2 pr-4 font-medium">Gelir</th>
                     <th className="pb-2 pr-4 font-medium">Kar</th>
                     <th className="pb-2 pr-4 font-medium">Satış</th>
-                    <th className="pb-2 font-medium">İade</th>
+                    <th className="pb-2 pr-4 font-medium">İade</th>
+                    <th className="pb-2 font-medium">İade Riski</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {businessSummary.category_summary.map((category) => (
-                    <tr
-                      key={category.category}
-                      className="border-b border-dw-border last:border-0"
-                    >
-                      <td className="py-2 pr-4 text-dw-text">
-                        {category.category}
-                      </td>
-                      <td className="py-2 pr-4 text-dw-muted">
-                        {formatCurrency(category.revenue)}
-                      </td>
-                      <td className="py-2 pr-4 text-dw-muted">
-                        {formatCurrency(category.estimated_profit)}
-                      </td>
-                      <td className="py-2 pr-4 text-dw-muted">
-                        {formatNumber(category.sales_quantity)}
-                      </td>
-                      <td className="py-2 text-dw-muted">
-                        {formatNumber(category.return_quantity)}
-                      </td>
-                    </tr>
-                  ))}
+                  {businessSummary.category_summary.map((category) => {
+                    const risk = getCategoryRisk(category)
+                    return (
+                      <tr
+                        key={category.category}
+                        className="border-b border-dw-border last:border-0"
+                      >
+                        <td className="py-2 pr-4 text-dw-text">
+                          {category.category}
+                        </td>
+                        <td className="py-2 pr-4 text-dw-muted">
+                          {formatCurrency(category.revenue)}
+                        </td>
+                        <td className="py-2 pr-4 text-dw-muted">
+                          {formatCurrency(category.estimated_profit)}
+                        </td>
+                        <td className="py-2 pr-4 text-dw-muted">
+                          {formatNumber(category.sales_quantity)}
+                        </td>
+                        <td className="py-2 pr-4 text-dw-muted">
+                          {formatNumber(category.return_quantity)}
+                        </td>
+                        <td className="py-2">
+                          <span
+                            className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[11px] font-medium ${getCategoryRiskBadgeClass(risk.level)}`}
+                          >
+                            {risk.label}
+                            {risk.rate !== null && (
+                              <span className="font-normal opacity-80">
+                                · {formatPercent(risk.rate)}
+                              </span>
+                            )}
+                          </span>
+                        </td>
+                      </tr>
+                    )
+                  })}
                 </tbody>
               </table>
             </div>
@@ -385,19 +410,28 @@ export function DashboardPage() {
             görünür.
           </p>
           <div className="grid gap-6 lg:grid-cols-2">
-            <QuestionBox
-              question={question}
-              onQuestionChange={setQuestion}
-              onSubmit={() => void handleAskQuestion()}
-              isLoading={isAsking}
-              disabled={!businessSummary || isLoadingData}
-              warningMessage={
-                !businessSummary
-                  ? 'Soru gönderebilmek için önce demo veri yükleyin veya CSV / Excel dosyanızı analiz edin.'
-                  : null
-              }
-              errorMessage={analysisError}
-            />
+            <div className="space-y-4">
+              <QuestionTemplates
+                onSelect={(template) => {
+                  setQuestion(template)
+                  setAnalysisError(null)
+                }}
+                disabled={!businessSummary || isLoadingData || isAsking}
+              />
+              <QuestionBox
+                question={question}
+                onQuestionChange={setQuestion}
+                onSubmit={() => void handleAskQuestion()}
+                isLoading={isAsking}
+                disabled={!businessSummary || isLoadingData}
+                warningMessage={
+                  !businessSummary
+                    ? 'Soru gönderebilmek için önce demo veri yükleyin veya CSV / Excel dosyanızı analiz edin.'
+                    : null
+                }
+                errorMessage={analysisError}
+              />
+            </div>
             <InsightCard
               analysis={analysis}
               isLoading={isAsking}

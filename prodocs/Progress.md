@@ -1,5 +1,16 @@
 # DataWhisper Progress Log
 
+## 2026-05-25 (dashboard guidance polish)
+
+### Completed
+
+- Added `AnalysisStatusCard` (`Analiz hazır` banner with row count + four KPI pills + a short Turkish status sentence that gracefully degrades to “Veri yok” when metrics are null).
+- Added `ExecutiveSummaryCard` — three on-device Turkish insights generated from `business_summary` without calling the AI: strongest category by revenue (with revenue share), bucketed return-rate interpretation, bucketed profit-margin interpretation. Skips any insight whose source metric is null and shows a friendly empty state when none are available.
+- Added `QuestionTemplates` chip strip above the question box with five ready-made KOBİ questions. Clicking a chip fills the textarea; chips are disabled while data is loading or a question is in-flight.
+- Category Özeti table now includes an “İade Riski” column with Düşük / Orta / Yüksek / Veri yok badges (thresholds 0–5 % / 5–12 % / 12 %+) plus the calculated rate. Helper lives in `src/lib/categoryRisk.ts`.
+- `DashboardPage` removed the duplicated “✓ N satır başarıyla analiz edildi” line from the upload section (now owned by `AnalysisStatusCard`).
+- No backend changes; auth, upload, demo data, health score, charts, and AI insight flows unchanged.
+
 ## 2026-05-25 (AI insight upgrade)
 
 ### Completed
