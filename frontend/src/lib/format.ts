@@ -1,4 +1,9 @@
-export function formatCurrency(value: number): string {
+export const MISSING_METRIC_LABEL = 'Veri yok'
+
+export function formatCurrency(value: number | null | undefined): string {
+  if (value === null || value === undefined) {
+    return MISSING_METRIC_LABEL
+  }
   return new Intl.NumberFormat('tr-TR', {
     style: 'currency',
     currency: 'TRY',
@@ -6,7 +11,10 @@ export function formatCurrency(value: number): string {
   }).format(value)
 }
 
-export function formatPercent(value: number): string {
+export function formatPercent(value: number | null | undefined): string {
+  if (value === null || value === undefined) {
+    return MISSING_METRIC_LABEL
+  }
   return new Intl.NumberFormat('tr-TR', {
     style: 'percent',
     minimumFractionDigits: 1,
@@ -14,7 +22,10 @@ export function formatPercent(value: number): string {
   }).format(value / 100)
 }
 
-export function formatNumber(value: number): string {
+export function formatNumber(value: number | null | undefined): string {
+  if (value === null || value === undefined) {
+    return MISSING_METRIC_LABEL
+  }
   return new Intl.NumberFormat('tr-TR').format(value)
 }
 

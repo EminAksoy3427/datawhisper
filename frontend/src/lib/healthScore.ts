@@ -1,31 +1,44 @@
 import type { BusinessSummary } from '@/api/types/data'
 
-export type HealthTier = 'strong' | 'stable' | 'attention' | 'risky'
+export type HealthTier = 'strong' | 'stable' | 'attention' | 'risky' | 'unknown'
 
 export type HealthScoreResult = {
-  score: number
+  score: number | null
   label: string
   tier: HealthTier
   explanation: string
 }
 
-export function calculateHealthScore(summary: BusinessSummary): number {
+export function calculateHealthScore(summary: BusinessSummary): number | null {
   const { metrics, row_count } = summary
+
+  const hasProfitSignal =
+    metrics.estimated_profit !== null && metrics.profit_margin !== null
+  const hasReturnSignal = metrics.return_rate !== null
+
+  if (!hasProfitSignal && !hasReturnSignal) {
+    return null
+  }
+
   let score = 100
 
-  if (metrics.return_rate > 15) {
-    score -= 25
+  if (metrics.return_rate !== null) {
+    if (metrics.return_rate > 15) {
+      score -= 25
+    }
+    if (metrics.return_rate > 10) {
+      score -= 15
+    }
   }
-  if (metrics.return_rate > 10) {
-    score -= 15
+  if (metrics.profit_margin !== null) {
+    if (metrics.profit_margin < 20) {
+      score -= 25
+    }
+    if (metrics.profit_margin < 35) {
+      score -= 10
+    }
   }
-  if (metrics.profit_margin < 20) {
-    score -= 25
-  }
-  if (metrics.profit_margin < 35) {
-    score -= 10
-  }
-  if (metrics.estimated_profit <= 0) {
+  if (metrics.estimated_profit !== null && metrics.estimated_profit <= 0) {
     score -= 30
   }
   if (row_count < 5) {
@@ -35,7 +48,10 @@ export function calculateHealthScore(summary: BusinessSummary): number {
   return Math.max(0, Math.min(100, score))
 }
 
-function getHealthTier(score: number): HealthTier {
+function getHealthTier(score: number | null): HealthTier {
+  if (score === null) {
+    return 'unknown'
+  }
   if (score >= 80) {
     return 'strong'
   }
@@ -54,26 +70,36 @@ function getHealthLabel(tier: HealthTier): string {
     stable: 'Stabil',
     attention: 'Dikkat Gerekli',
     risky: 'Riskli',
+    unknown: 'Yeterli Veri Yok',
   }
   return labels[tier]
 }
 
 function buildExplanation(summary: BusinessSummary, tier: HealthTier): string {
   const { metrics, row_count } = summary
+
+  if (tier === 'unknown') {
+    return 'Sağlık skorunu hesaplamak için gelir, maliyet veya iade sütunlarından en az birine ihtiyacımız var.'
+  }
+
   const issues: string[] = []
 
-  if (metrics.estimated_profit <= 0) {
+  if (metrics.estimated_profit !== null && metrics.estimated_profit <= 0) {
     issues.push('kar negatif veya sıfır')
   }
-  if (metrics.return_rate > 15) {
-    issues.push('iade oranı çok yüksek')
-  } else if (metrics.return_rate > 10) {
-    issues.push('iade oranı yükselmiş')
+  if (metrics.return_rate !== null) {
+    if (metrics.return_rate > 15) {
+      issues.push('iade oranı çok yüksek')
+    } else if (metrics.return_rate > 10) {
+      issues.push('iade oranı yükselmiş')
+    }
   }
-  if (metrics.profit_margin < 20) {
-    issues.push('kar marjı düşük')
-  } else if (metrics.profit_margin < 35) {
-    issues.push('kar marjı orta seviyede')
+  if (metrics.profit_margin !== null) {
+    if (metrics.profit_margin < 20) {
+      issues.push('kar marjı düşük')
+    } else if (metrics.profit_margin < 35) {
+      issues.push('kar marjı orta seviyede')
+    }
   }
   if (row_count < 5) {
     issues.push('az sayıda veri satırı')

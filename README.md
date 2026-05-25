@@ -17,7 +17,8 @@ Small e-commerce sellers, boutique manufacturers, and retailers often manage the
 
 - User registration and login (JWT)
 - Demo SME business data (no login required)
-- CSV upload and business summary analysis
+- CSV / Excel (.csv, .xlsx, .xls) upload with automatic Turkish/English column detection
+- Business summary analysis even when only some columns are present
 - Dashboard metrics: revenue, profit, return rate, profit margin
 - Top revenue and top returned product charts
 - Category summary table
@@ -102,7 +103,7 @@ App: [http://localhost:5173](http://localhost:5173)
 
 1. Open the landing page and **Register** or **Login**.
 2. Go to **Panel** (dashboard).
-3. Click **Demo Veriyi Yükle** to load sample SME data (or upload your own CSV).
+3. Click **Demo Veriyi Yükle** to load sample SME data, or upload your own `.csv`, `.xlsx`, or `.xls` file — Turkish headers such as *Ürün Adı*, *Kategori*, *Satış Adedi*, *Ciro*, *Maliyet*, *İade Adedi* are detected automatically.
 4. Review **metrics**, **health score**, **category table**, and **charts**.
 5. Type a Turkish business question (e.g. *“En çok iade edilen ürün hangisi?”*) and click **Soru Gönder**.
 6. Read the AI **summary**, **insight**, **recommendation**, and **risk level** on the right.
@@ -115,7 +116,7 @@ App: [http://localhost:5173](http://localhost:5173)
 | POST   | `/auth/login`    | No     | Login                    |
 | GET    | `/auth/me`       | Bearer | Current user             |
 | GET    | `/demo-data`     | No     | Sample business summary  |
-| POST   | `/upload-csv`    | Bearer | Analyze uploaded CSV     |
+| POST   | `/upload-csv`    | Bearer | Analyze uploaded CSV or Excel file (.csv/.xlsx/.xls) with flexible column detection |
 | POST   | `/ask`           | Bearer | AI analysis (Turkish)    |
 
 ## Future Improvements

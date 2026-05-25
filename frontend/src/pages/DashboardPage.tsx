@@ -15,9 +15,9 @@ import { QuestionBox } from '@/components/QuestionBox'
 import { useAuth } from '@/context/AuthContext'
 import { getApiErrorMessage } from '@/lib/apiError'
 import { formatCurrency, formatNumber, formatPercent } from '@/lib/format'
+import { getColumnLabel } from '@/lib/labels'
 
-const CSV_COLUMNS =
-  'date, product_name, category, supplier, sales_quantity, revenue, cost, return_quantity, return_reason'
+const ACCEPTED_FILE_TYPES = '.csv,.xlsx,.xls'
 
 export function DashboardPage() {
   const { user } = useAuth()
@@ -133,8 +133,8 @@ export function DashboardPage() {
         <section className="mb-8 rounded-[var(--radius-dw)] border border-dw-border bg-dw-card p-6 shadow-sm">
           <h2 className="text-lg font-semibold text-dw-text">1. Veriyi Yükleyin</h2>
           <p className="mt-1 text-sm text-dw-muted">
-            Analiz için demo veriyi kullanabilir veya kendi CSV dosyanızı
-            yükleyebilirsiniz.
+            Analiz için demo veriyi kullanabilir veya kendi CSV / Excel
+            dosyanızı yükleyebilirsiniz.
           </p>
 
           {dataError && (
@@ -168,11 +168,15 @@ export function DashboardPage() {
             </div>
 
             <div className="rounded-[var(--radius-dw)] border border-dw-border bg-dw-bg p-4">
-              <h3 className="font-medium text-dw-text">Kendi CSV dosyanız</h3>
+              <h3 className="font-medium text-dw-text">
+                Kendi CSV veya Excel dosyanız
+              </h3>
               <p className="mt-2 text-sm leading-relaxed text-dw-muted">
-                Excel’den kaydettiğiniz CSV dosyasında şu sütunlar bulunmalıdır:{' '}
-                <span className="font-mono text-xs text-dw-text">{CSV_COLUMNS}</span>
-                . Yükleme için giriş yapmış olmanız gerekir.
+                .csv, .xlsx veya .xls uzantılı bir dosya yükleyin. DataWhisper
+                sütun adlarınızı otomatik olarak anlamaya çalışır; Türkçe ya da
+                İngilizce başlıklar (ör. <em>Ürün Adı</em>, <em>Ciro</em>,{' '}
+                <em>Maliyet</em>) sorun çıkarmaz. Yükleme için giriş yapmış
+                olmanız gerekir.
               </p>
               <button
                 type="button"
@@ -180,12 +184,12 @@ export function DashboardPage() {
                 disabled={isLoadingData}
                 className="mt-4 rounded-[var(--radius-dw)] border border-dw-border bg-dw-card px-4 py-2 text-sm font-medium text-dw-text hover:bg-white disabled:cursor-not-allowed disabled:opacity-60"
               >
-                {isLoadingData ? 'Yükleniyor...' : 'CSV Dosyası Seç'}
+                {isLoadingData ? 'Yükleniyor...' : 'Dosya Seç (CSV / Excel)'}
               </button>
               <input
                 ref={fileInputRef}
                 type="file"
-                accept=".csv"
+                accept={ACCEPTED_FILE_TYPES}
                 className="hidden"
                 onChange={handleFileChange}
               />
@@ -193,10 +197,53 @@ export function DashboardPage() {
           </div>
 
           {businessSummary && !isLoadingData && (
-            <p className="mt-4 text-sm font-medium text-dw-secondary">
-              ✓ {formatNumber(businessSummary.row_count)} satır başarıyla analiz
-              edildi.
-            </p>
+            <div className="mt-4 space-y-3">
+              <p className="text-sm font-medium text-dw-secondary">
+                ✓ {formatNumber(businessSummary.row_count)} satır başarıyla
+                analiz edildi.
+              </p>
+
+              {businessSummary.detected_columns &&
+                Object.keys(businessSummary.detected_columns).length > 0 && (
+                  <div className="rounded-[var(--radius-dw)] border border-dw-border bg-dw-bg p-4">
+                    <p className="text-sm font-medium text-dw-text">
+                      Otomatik tanınan sütunlar
+                    </p>
+                    <ul className="mt-2 flex flex-wrap gap-2">
+                      {Object.entries(businessSummary.detected_columns).map(
+                        ([canonical, original]) => (
+                          <li
+                            key={canonical}
+                            className="rounded-full border border-dw-border bg-dw-card px-3 py-1 text-xs text-dw-text"
+                          >
+                            <span className="font-medium">
+                              {getColumnLabel(canonical)}
+                            </span>
+                            <span className="text-dw-muted">
+                              {' '}
+                              ← {original}
+                            </span>
+                          </li>
+                        ),
+                      )}
+                    </ul>
+                  </div>
+                )}
+
+              {businessSummary.missing_capabilities &&
+                businessSummary.missing_capabilities.length > 0 && (
+                  <div className="rounded-[var(--radius-dw)] border border-amber-200 bg-amber-50 p-4">
+                    <p className="text-sm font-medium text-amber-900">
+                      Bazı analizler atlandı
+                    </p>
+                    <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-amber-900">
+                      {businessSummary.missing_capabilities.map((message) => (
+                        <li key={message}>{message}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+            </div>
           )}
         </section>
 
@@ -210,7 +257,7 @@ export function DashboardPage() {
           {!businessSummary ? (
             <EmptyState
               title="Henüz veri yok"
-              description="Metrikleri görmek için yukarıdan demo veriyi yükleyin veya CSV dosyanızı seçin."
+              description="Metrikleri görmek için yukarıdan demo veriyi yükleyin veya CSV / Excel dosyanızı seçin."
             />
           ) : (
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -346,7 +393,7 @@ export function DashboardPage() {
               disabled={!businessSummary || isLoadingData}
               warningMessage={
                 !businessSummary
-                  ? 'Soru gönderebilmek için önce demo veri yükleyin veya CSV dosyanızı analiz edin.'
+                  ? 'Soru gönderebilmek için önce demo veri yükleyin veya CSV / Excel dosyanızı analiz edin.'
                   : null
               }
               errorMessage={analysisError}

@@ -30,3 +30,19 @@ export function getChartSuggestionLabel(suggestion: ChartSuggestion): string {
 export function getRiskBadgeClass(level: RiskLevel): string {
   return RISK_STYLES[level]
 }
+
+const COLUMN_LABELS: Record<string, string> = {
+  product_name: 'Ürün adı',
+  category: 'Kategori',
+  supplier: 'Tedarikçi',
+  date: 'Tarih',
+  sales_quantity: 'Satış adedi',
+  revenue: 'Gelir',
+  cost: 'Maliyet',
+  return_quantity: 'İade adedi',
+  return_reason: 'İade nedeni',
+}
+
+export function getColumnLabel(canonical: string): string {
+  return COLUMN_LABELS[canonical] ?? canonical
+}

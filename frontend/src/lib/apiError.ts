@@ -46,7 +46,7 @@ export function getApiErrorMessage(error: unknown): string {
   }
 
   if (status === 413) {
-    return 'Dosya çok büyük. Daha küçük bir CSV dosyası yükleyin.'
+    return 'Dosya çok büyük. Daha küçük bir CSV veya Excel dosyası yükleyin.'
   }
 
   if (status >= 500) {

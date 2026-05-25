@@ -34,11 +34,18 @@ const tierStyles: Record<
     score: 'text-dw-danger',
     badge: 'bg-red-100 text-red-800',
   },
+  unknown: {
+    border: 'border-dw-border',
+    bg: 'bg-dw-bg',
+    score: 'text-dw-muted',
+    badge: 'bg-slate-100 text-slate-700',
+  },
 }
 
 export function HealthScoreCard({ summary }: HealthScoreCardProps) {
   const health = getHealthScoreResult(summary)
   const styles = tierStyles[health.tier]
+  const isUnknown = health.score === null
 
   return (
     <section
@@ -61,10 +68,14 @@ export function HealthScoreCard({ summary }: HealthScoreCardProps) {
         </span>
       </div>
 
-      <p className={`mt-6 text-5xl font-bold tracking-tight ${styles.score}`}>
-        {health.score}
-        <span className="ml-1 text-2xl font-semibold text-dw-muted">/ 100</span>
-      </p>
+      {!isUnknown && (
+        <p className={`mt-6 text-5xl font-bold tracking-tight ${styles.score}`}>
+          {health.score}
+          <span className="ml-1 text-2xl font-semibold text-dw-muted">
+            / 100
+          </span>
+        </p>
+      )}
 
       <p className="mt-4 max-w-2xl text-sm leading-relaxed text-dw-text">
         {health.explanation}

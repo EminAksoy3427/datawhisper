@@ -1,11 +1,11 @@
 export type BusinessMetrics = {
-  total_revenue: number
-  total_cost: number
-  estimated_profit: number
-  profit_margin: number
-  total_sales_quantity: number
-  total_return_quantity: number
-  return_rate: number
+  total_revenue: number | null
+  total_cost: number | null
+  estimated_profit: number | null
+  profit_margin: number | null
+  total_sales_quantity: number | null
+  total_return_quantity: number | null
+  return_rate: number | null
 }
 
 export type ProductMetric = {
@@ -31,4 +31,6 @@ export type BusinessSummary = {
   top_returned_products: ProductMetric[]
   category_summary: CategoryMetric[]
   row_count: number
+  detected_columns?: Record<string, string>
+  missing_capabilities?: string[]
 }

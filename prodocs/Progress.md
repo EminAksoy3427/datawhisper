@@ -1,5 +1,18 @@
 # DataWhisper Progress Log
 
+## 2026-05-25 (flexible file upload)
+
+### Completed
+
+- `/upload-csv` now accepts `.csv`, `.xlsx`, and `.xls` files (extension-based detection, pandas `read_csv` / `read_excel`).
+- Added `openpyxl` and `xlrd` to `backend/requirements.txt`.
+- Replaced strict required-column validation with a Turkish/English column mapping (`product_name`, `category`, `supplier`, `date`, `sales_quantity`, `revenue`, `cost`, `return_quantity`, `return_reason`).
+- Header matching is diacritic- and case-insensitive (e.g. `Ürün Adı`, `Satış Adedi`, `İade Adedi` all map to canonical keys).
+- Analysis no longer fails when business columns are missing — missing metrics become `null`, missing breakdowns become empty arrays.
+- Response now includes `detected_columns` and Turkish `missing_capabilities` messages.
+- Frontend dashboard: upload copy switched to “CSV veya Excel”, file picker accepts `.csv,.xlsx,.xls`, detected columns and missing-capability warnings rendered after upload, metric/percent formatters tolerate `null`.
+- `HealthScoreCard` shows a “Yeterli Veri Yok” state when essential metrics cannot be computed.
+
 ## 2026-05-24
 
 ### Completed
