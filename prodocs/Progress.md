@@ -1,5 +1,20 @@
 # DataWhisper Progress Log
 
+## 2026-05-25 (landing page SaaS polish)
+
+### Completed
+
+- Redesigned `src/pages/LandingPage.tsx` into a proper SaaS-style product page (no backend, auth, or dashboard changes).
+- New hero: headline “Küçük işletmeniz için Türkçe AI iş analisti”, supporting subheadline, “Ücretsiz Başla” + “Giriş Yap” CTAs, and three trust badges (“CSV & Excel desteği”, “Türkçe soru-cevap”, “Kod veya BI bilgisi gerekmez”). Hero uses a soft gradient and a two-column layout on `lg`.
+- Added a static `ProductPreview` card next to the hero — a faux mini dashboard with İşletme Sağlık Skoru 85/100, Toplam Gelir ₺202.250, İade Oranı %11,8 and an AI Bulgu chip (“İade riski Giyim kategorisinde yoğunlaşıyor.”), risk badge included. No real API calls.
+- Added three new content sections with consistent eyebrow + title + description headers:
+  - **Nasıl çalışır?** — 3 numbered step cards (Dosyanızı yükleyin / Türkçe sorun / Aksiyon alın).
+  - **Kimler için?** — 3 target user cards (E-ticaret satıcıları / Butik üreticiler / Küçük perakendeciler).
+  - **Neden DataWhisper?** — 3 benefit cards (Excel karmaşası / İade ve kârlılık riskleri / Teknik bilgi gerekmez).
+- Added a closing CTA banner with both CTAs repeated.
+- Footer copy updated: “© 2026 DataWhisper — Yapay Zeka Destekli İş Analizi Platformu”. The previous “Bootcamp MVP” text appeared only here; verified there are no other occurrences in the frontend.
+- All copy in Turkish, all styling reuses existing Tailwind tokens (`dw-primary`, `dw-secondary`, `dw-bg`, `dw-card`, `dw-border`, `--radius-dw`). Page is responsive (mobile single column, `lg` two-column hero, `md:grid-cols-3` for card sections).
+
 ## 2026-05-25 (dashboard guidance polish)
 
 ### Completed
