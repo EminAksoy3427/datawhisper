@@ -23,7 +23,7 @@ Small e-commerce sellers, boutique manufacturers, and retailers often manage the
 - Top revenue and top returned product charts
 - Category summary table
 - Business Health Score (frontend-calculated, 0–100)
-- Turkish natural language questions with AI-generated summary, insight, recommendation, risk level, and chart suggestion
+- Turkish natural language questions answered like a small-business analyst: headline, focus area, priority, main finding, why-it-matters, three recommended actions, expected impact, data-to-check checklist, and three follow-up question chips (clickable)
 
 ## Tech Stack
 

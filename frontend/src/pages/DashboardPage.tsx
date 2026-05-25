@@ -398,7 +398,14 @@ export function DashboardPage() {
               }
               errorMessage={analysisError}
             />
-            <InsightCard analysis={analysis} isLoading={isAsking} />
+            <InsightCard
+              analysis={analysis}
+              isLoading={isAsking}
+              onFollowUpClick={(followUp) => {
+                setQuestion(followUp)
+                setAnalysisError(null)
+              }}
+            />
           </div>
         </section>
       </main>

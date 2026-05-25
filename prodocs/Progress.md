@@ -1,5 +1,15 @@
 # DataWhisper Progress Log
 
+## 2026-05-25 (AI insight upgrade)
+
+### Completed
+
+- Rewrote `app/services/ai_service.py` system prompt: AI now responds as a practical KOBİ business analyst, grounded in concrete products/categories/metrics from `business_summary`, with an explicit instruction to flag missing data instead of guessing.
+- Extended `AnalysisResponse` (Pydantic schema + frontend type) with structured fields: `headline`, `focus_area`, `priority`, `main_finding`, `why_it_matters`, `recommended_actions` (×3), `expected_impact`, `data_to_check` (3–5), `follow_up_questions` (×3). Legacy `summary`/`insight`/`recommendation`/`risk_level`/`chart_suggestion` fields are preserved and auto-derived for backward compatibility.
+- Defensive parser enforces field counts, headline length cap (120 chars), normalizes `priority` to one of the three allowed Turkish values, and falls back gracefully when the model omits a field.
+- Redesigned `src/components/InsightCard.tsx`: new title “DataWhisper AI Analizi”, three badges (Risk Seviyesi / Odak Alanı / Öncelik), bold headline, six numbered sections (Ana Bulgu, Neden Önemli?, Önerilen Aksiyonlar, Olası Etki, Kontrol Edilecek Veriler, Sonraki Sorular), checklist for actions, chips for `data_to_check`, clickable chips for `follow_up_questions` that pre-fill the question box. Removed the visible “Önerilen grafik” chip.
+- `getPriorityBadgeClass` helper added in `src/lib/labels.ts`.
+
 ## 2026-05-25 (flexible file upload)
 
 ### Completed

@@ -1,4 +1,8 @@
-import type { ChartSuggestion, RiskLevel } from '@/api/types/analysis'
+import type {
+  ChartSuggestion,
+  Priority,
+  RiskLevel,
+} from '@/api/types/analysis'
 
 const RISK_LABELS: Record<RiskLevel, string> = {
   low: 'Düşük',
@@ -19,6 +23,12 @@ const RISK_STYLES: Record<RiskLevel, string> = {
   high: 'bg-red-50 text-dw-danger border-red-200',
 }
 
+const PRIORITY_STYLES: Record<Priority, string> = {
+  'Bugün kontrol edilmeli': 'bg-red-50 text-dw-danger border-red-200',
+  'Bu hafta kontrol edilmeli': 'bg-amber-50 text-dw-warning border-amber-200',
+  'Takipte kalmalı': 'bg-blue-50 text-dw-primary border-blue-200',
+}
+
 export function getRiskLabel(level: RiskLevel): string {
   return RISK_LABELS[level]
 }
@@ -29,6 +39,10 @@ export function getChartSuggestionLabel(suggestion: ChartSuggestion): string {
 
 export function getRiskBadgeClass(level: RiskLevel): string {
   return RISK_STYLES[level]
+}
+
+export function getPriorityBadgeClass(priority: Priority): string {
+  return PRIORITY_STYLES[priority] ?? PRIORITY_STYLES['Takipte kalmalı']
 }
 
 const COLUMN_LABELS: Record<string, string> = {
