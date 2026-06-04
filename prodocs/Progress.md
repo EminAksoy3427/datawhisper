@@ -1,5 +1,28 @@
 # DataWhisper Progress Log
 
+## 2026-06-04 (Dosya Durumu card — business UX)
+
+### Completed
+
+- Simplified `DataUnderstandingCard` to **Dosya Durumu**: compact success copy, business field chips (no column names or % in default view), max 3 friendly guidance lines from `dataUnderstandingGuidance.ts`.
+- Technical mappings, confidence, and `possible_matches` moved behind **Teknik eşleşmeleri göster** toggle.
+
+## 2026-06-04 (dashboard upload feedback)
+
+### Completed
+
+- Extended `BusinessSummary` types with `detected_column_confidence`, `detected_dimensions`, `possible_matches`.
+- Added `DataUnderstandingCard` on dashboard after analysis cards; upload success copy; chart-specific empty states via `chartEmptyMessages.ts`.
+
+## 2026-06-04 (flexible data understanding layer)
+
+### Completed
+
+- Added `app/services/column_detection.py`: header normalization (Turkish chars, punctuation, snake/kebab case), expanded TR/EN aliases for 18 canonical fields, RapidFuzz fuzzy matching (exact first, ≥85 accepted, 70–84 `possible_matches`, &lt;70 ignored).
+- Refactored `csv_service.py` with safe metric rules (prefer total revenue/cost/profit columns over unit×quantity), dimension fields in `detected_dimensions`, null-safe calculations, and richer Turkish `missing_capabilities`.
+- Extended `BusinessSummaryResponse` with `detected_column_confidence`, `detected_dimensions`, `possible_matches`; added `rapidfuzz` to `requirements.txt`.
+- Added `backend/tests/test_data_understanding.py` (demo, Turkish headers, English sales export, fuzzy confidence bands).
+
 ## 2026-06-03 (auth pages SaaS polish)
 
 ### Completed

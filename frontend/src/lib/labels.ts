@@ -46,17 +46,32 @@ export function getPriorityBadgeClass(priority: Priority): string {
 }
 
 const COLUMN_LABELS: Record<string, string> = {
-  product_name: 'Ürün adı',
+  product_name: 'Ürün',
   category: 'Kategori',
   supplier: 'Tedarikçi',
   date: 'Tarih',
   sales_quantity: 'Satış adedi',
+  unit_price: 'Birim fiyat',
+  unit_cost: 'Birim maliyet',
   revenue: 'Gelir',
   cost: 'Maliyet',
+  profit: 'Kâr',
   return_quantity: 'İade adedi',
   return_reason: 'İade nedeni',
 }
 
+const DIMENSION_LABELS: Record<string, string> = {
+  region: 'Bölge',
+  country: 'Ülke',
+  sales_channel: 'Satış kanalı',
+  order_priority: 'Sipariş önceliği',
+  order_id: 'Sipariş no',
+}
+
 export function getColumnLabel(canonical: string): string {
   return COLUMN_LABELS[canonical] ?? canonical
+}
+
+export function getDimensionLabel(canonical: string): string {
+  return DIMENSION_LABELS[canonical] ?? getColumnLabel(canonical)
 }

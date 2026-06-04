@@ -25,6 +25,12 @@ export type CategoryMetric = {
   return_quantity: number
 }
 
+export type PossibleColumnMatch = {
+  canonical: string
+  column: string
+  confidence: number
+}
+
 export type BusinessSummary = {
   metrics: BusinessMetrics
   top_revenue_products: ProductMetric[]
@@ -32,5 +38,8 @@ export type BusinessSummary = {
   category_summary: CategoryMetric[]
   row_count: number
   detected_columns?: Record<string, string>
+  detected_column_confidence?: Record<string, number>
+  detected_dimensions?: Record<string, string>
+  possible_matches?: PossibleColumnMatch[] | Record<string, unknown>[]
   missing_capabilities?: string[]
 }

@@ -28,6 +28,12 @@ class CategoryMetric(BaseModel):
     return_quantity: float
 
 
+class PossibleColumnMatch(BaseModel):
+    canonical: str
+    column: str
+    confidence: int
+
+
 class BusinessSummaryResponse(BaseModel):
     metrics: BusinessMetrics
     top_revenue_products: list[ProductMetric] = Field(default_factory=list)
@@ -36,7 +42,19 @@ class BusinessSummaryResponse(BaseModel):
     row_count: int = Field(description="Number of data rows analyzed")
     detected_columns: dict[str, str] = Field(
         default_factory=dict,
-        description="Mapping of canonical column key -> original column name in the uploaded file.",
+        description="Mapping of canonical column key -> original column name (confidence >= 85).",
+    )
+    detected_column_confidence: dict[str, int] = Field(
+        default_factory=dict,
+        description="Confidence score 0-100 for each accepted column mapping.",
+    )
+    detected_dimensions: dict[str, str] = Field(
+        default_factory=dict,
+        description="Optional dimension columns (region, country, channel, etc.).",
+    )
+    possible_matches: list[PossibleColumnMatch] = Field(
+        default_factory=list,
+        description="Column matches with confidence 70-84, not used in calculations.",
     )
     missing_capabilities: list[str] = Field(
         default_factory=list,

@@ -5,6 +5,7 @@ import type { AnalysisResponse } from '@/api/types/analysis'
 import type { BusinessSummary } from '@/api/types/data'
 import { AnalysisStatusCard } from '@/components/AnalysisStatusCard'
 import { ChartCard } from '@/components/ChartCard'
+import { DataUnderstandingCard } from '@/components/DataUnderstandingCard'
 import { EmptyState } from '@/components/EmptyState'
 import { ExecutiveSummaryCard } from '@/components/ExecutiveSummaryCard'
 import { FormAlert } from '@/components/FormAlert'
@@ -21,8 +22,11 @@ import {
   getCategoryRisk,
   getCategoryRiskBadgeClass,
 } from '@/lib/categoryRisk'
+import {
+  getReturnChartEmptyMessage,
+  getRevenueChartEmptyMessage,
+} from '@/lib/chartEmptyMessages'
 import { formatCurrency, formatNumber, formatPercent } from '@/lib/format'
-import { getColumnLabel } from '@/lib/labels'
 
 const ACCEPTED_FILE_TYPES = '.csv,.xlsx,.xls'
 
@@ -40,6 +44,7 @@ export function DashboardPage() {
   const [analysis, setAnalysis] = useState<AnalysisResponse | null>(null)
   const [isAsking, setIsAsking] = useState(false)
   const [analysisError, setAnalysisError] = useState<string | null>(null)
+  const [lastLoadWasUpload, setLastLoadWasUpload] = useState(false)
 
   async function handleLoadDemo() {
     setIsLoadingData(true)
@@ -48,6 +53,7 @@ export function DashboardPage() {
     try {
       const summary = await fetchDemoData()
       setBusinessSummary(summary)
+      setLastLoadWasUpload(false)
       setAnalysis(null)
       setAnalysisError(null)
     } catch (error) {
@@ -64,6 +70,7 @@ export function DashboardPage() {
     try {
       const summary = await uploadCsv(file)
       setBusinessSummary(summary)
+      setLastLoadWasUpload(true)
       setAnalysis(null)
       setAnalysisError(null)
     } catch (error) {
@@ -203,57 +210,24 @@ export function DashboardPage() {
             </div>
           </div>
 
-          {businessSummary && !isLoadingData && (
-            <div className="mt-4 space-y-3">
-              {businessSummary.detected_columns &&
-                Object.keys(businessSummary.detected_columns).length > 0 && (
-                  <div className="rounded-[var(--radius-dw)] border border-dw-border bg-dw-bg p-4">
-                    <p className="text-sm font-medium text-dw-text">
-                      Otomatik tanınan sütunlar
-                    </p>
-                    <ul className="mt-2 flex flex-wrap gap-2">
-                      {Object.entries(businessSummary.detected_columns).map(
-                        ([canonical, original]) => (
-                          <li
-                            key={canonical}
-                            className="rounded-full border border-dw-border bg-dw-card px-3 py-1 text-xs text-dw-text"
-                          >
-                            <span className="font-medium">
-                              {getColumnLabel(canonical)}
-                            </span>
-                            <span className="text-dw-muted">
-                              {' '}
-                              ← {original}
-                            </span>
-                          </li>
-                        ),
-                      )}
-                    </ul>
-                  </div>
-                )}
-
-              {businessSummary.missing_capabilities &&
-                businessSummary.missing_capabilities.length > 0 && (
-                  <div className="rounded-[var(--radius-dw)] border border-amber-200 bg-amber-50 p-4">
-                    <p className="text-sm font-medium text-amber-900">
-                      Bazı analizler atlandı
-                    </p>
-                    <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-amber-900">
-                      {businessSummary.missing_capabilities.map((message) => (
-                        <li key={message}>{message}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-            </div>
+          {businessSummary && !isLoadingData && lastLoadWasUpload && (
+            <p className="mt-4 rounded-[var(--radius-dw)] border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm leading-relaxed text-dw-text">
+              Dosya başarıyla analiz edildi. DataWhisper güvenli algıladığı
+              alanlarla metrikleri oluşturdu.
+            </p>
           )}
         </section>
 
         {businessSummary && !isLoadingData && (
-          <section className="mb-8 grid gap-4 lg:grid-cols-2">
-            <AnalysisStatusCard summary={businessSummary} />
-            <ExecutiveSummaryCard summary={businessSummary} />
-          </section>
+          <>
+            <section className="mb-8 grid gap-4 lg:grid-cols-2">
+              <AnalysisStatusCard summary={businessSummary} />
+              <ExecutiveSummaryCard summary={businessSummary} />
+            </section>
+            <section className="mb-8">
+              <DataUnderstandingCard summary={businessSummary} />
+            </section>
+          </>
         )}
 
         <section className="mb-8">
@@ -388,7 +362,7 @@ export function DashboardPage() {
               description="Satış gelirine göre ilk 5 ürün."
               data={revenueChartData}
               valueLabel="Gelir"
-              emptyMessage="Grafik için önce veri yükleyin."
+              emptyMessage={getRevenueChartEmptyMessage(businessSummary)}
             />
             <ChartCard
               title="En Çok İade Edilen Ürünler"
@@ -396,7 +370,7 @@ export function DashboardPage() {
               data={returnChartData}
               valueLabel="İade adedi"
               formatValueAsCurrency={false}
-              emptyMessage="Grafik için önce veri yükleyin."
+              emptyMessage={getReturnChartEmptyMessage(businessSummary)}
             />
           </div>
         </section>
