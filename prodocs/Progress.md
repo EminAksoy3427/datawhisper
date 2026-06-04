@@ -7,6 +7,24 @@
 - Merged **AI İş Analistine Sor** card: örnek sorular + textarea + “AI Analizi Oluştur” CTA; capability-aware chips (iade/kategori/kâr marjı).
 - **InsightCard**: premium empty preview (Ana bulgu / Neden önemli / Aksiyonlar), two-line loading copy; matched min-height with question card on desktop.
 
+## 2026-06-04 (final QA & responsive polish)
+
+### Checked
+
+- Landing CTAs (`/register`, `/login`), footer copy — no “Bootcamp MVP” in UI.
+- Auth login/register flows, loading and error states.
+- Dashboard demo/upload, metrics, charts, category table scroll, AI section chips/loading/empty states.
+
+### Fixed
+
+- Global and page-level `overflow-x-hidden` / `min-w-0` on grids and chart containers to prevent horizontal scroll at 390–1440px.
+- Compact status card copy (“Verileriniz hazır”), mobile-friendly card padding and full-width upload buttons on small screens.
+- Landing hero type scale, auth card padding, chart `ResponsiveContainer` minWidth.
+
+### Verified
+
+- Backend tests (7 passed), frontend `npm run build` passed.
+
 ## 2026-06-04 (rich demo dataset)
 
 ### Completed

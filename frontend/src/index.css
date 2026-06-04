@@ -18,7 +18,11 @@
 }
 
 @layer base {
+  html {
+    overflow-x: hidden;
+  }
+
   body {
-    @apply m-0 min-h-screen bg-dw-bg font-sans text-dw-text antialiased;
+    @apply m-0 min-h-screen overflow-x-hidden bg-dw-bg font-sans text-dw-text antialiased;
   }
 }

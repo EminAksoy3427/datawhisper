@@ -49,7 +49,7 @@ export function HealthScoreCard({ summary }: HealthScoreCardProps) {
 
   return (
     <section
-      className={`rounded-[var(--radius-dw)] border p-6 shadow-sm ${styles.border} ${styles.bg}`}
+      className={`min-w-0 rounded-[var(--radius-dw)] border p-4 shadow-sm sm:p-6 ${styles.border} ${styles.bg}`}
     >
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
@@ -77,7 +77,7 @@ export function HealthScoreCard({ summary }: HealthScoreCardProps) {
         </p>
       )}
 
-      <p className="mt-4 max-w-2xl text-sm leading-relaxed text-dw-text">
+      <p className="mt-4 max-w-2xl break-words text-sm leading-relaxed text-dw-text">
         {health.explanation}
       </p>
     </section>

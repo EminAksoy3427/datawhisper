@@ -82,19 +82,19 @@ function PreviewBadge({
 
 function ProductPreview() {
   return (
-    <div className="relative">
+    <div className="relative min-w-0">
       <div
         aria-hidden
         className="absolute inset-x-6 -bottom-3 h-6 rounded-full bg-blue-100/60 blur-2xl"
       />
       <div className="relative rounded-[var(--radius-dw)] border border-dw-border bg-dw-card p-5 shadow-lg">
-        <div className="flex items-center justify-between text-xs text-dw-muted">
-          <div className="flex items-center gap-2">
-            <span className="flex h-7 w-7 items-center justify-center rounded-[var(--radius-dw)] bg-dw-primary text-[11px] font-bold text-white">
+        <div className="flex min-w-0 items-center justify-between gap-2 text-xs text-dw-muted">
+          <div className="flex min-w-0 items-center gap-2">
+            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-[var(--radius-dw)] bg-dw-primary text-[11px] font-bold text-white">
               DW
             </span>
-            <span className="font-medium text-dw-text">
-              DataWhisper · İşletme Paneli
+            <span className="truncate font-medium text-dw-text">
+              DataWhisper · Panel
             </span>
           </div>
           <PreviewBadge
@@ -182,13 +182,13 @@ function SectionHeader({
 
 export function LandingPage() {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen min-w-0 flex-col overflow-x-hidden">
       <Navbar />
 
       <main className="flex-1">
         <section className="border-b border-dw-border bg-gradient-to-b from-white via-dw-bg to-dw-bg">
-          <div className="mx-auto grid w-full max-w-[1200px] gap-10 px-4 py-12 md:py-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-            <div>
+          <div className="mx-auto grid w-full min-w-0 max-w-[1200px] gap-10 px-4 py-10 sm:py-12 md:py-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+            <div className="min-w-0">
               <span className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-xs font-medium text-dw-primary">
                 <span
                   aria-hidden
@@ -197,7 +197,7 @@ export function LandingPage() {
                 Yapay zekâ destekli iş analizi
               </span>
 
-              <h1 className="mt-4 text-3xl font-bold tracking-tight text-dw-text md:text-[44px] md:leading-[1.1]">
+              <h1 className="mt-4 text-[1.65rem] font-bold leading-tight tracking-tight text-dw-text sm:text-3xl md:text-[44px] md:leading-[1.1]">
                 Küçük işletmeniz için Türkçe AI iş analisti
               </h1>
 

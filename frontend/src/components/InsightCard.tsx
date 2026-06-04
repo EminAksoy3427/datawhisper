@@ -27,7 +27,7 @@ export function InsightCard({
   onFollowUpClick,
 }: InsightCardProps) {
   return (
-    <section className="flex h-full min-h-[320px] flex-col rounded-[var(--radius-dw)] border border-dw-border bg-dw-card p-6 shadow-sm">
+    <section className="flex h-full min-w-0 flex-col rounded-[var(--radius-dw)] border border-dw-border bg-dw-card p-4 shadow-sm sm:min-h-[300px] sm:p-6 lg:min-h-[320px]">
       <header className="mb-4">
         <h2 className="text-lg font-semibold text-dw-text">
           DataWhisper AI Analizi
@@ -78,7 +78,7 @@ export function InsightCard({
         )}
 
         {!isLoading && analysis && (
-          <div className="space-y-6 text-sm">
+          <div className="space-y-6 break-words text-sm">
             <div className="flex flex-wrap items-center gap-2">
               <Badge
                 label="Risk Seviyesi"
@@ -97,7 +97,7 @@ export function InsightCard({
               />
             </div>
 
-            <p className="text-base font-semibold leading-snug text-dw-text">
+            <p className="text-base font-semibold leading-snug text-dw-text break-words">
               {analysis.headline}
             </p>
 

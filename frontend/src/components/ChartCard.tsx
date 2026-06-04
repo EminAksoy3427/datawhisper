@@ -37,7 +37,7 @@ export function ChartCard({
   }))
 
   return (
-    <section className="rounded-[var(--radius-dw)] border border-dw-border bg-dw-card p-6 shadow-sm">
+    <section className="min-w-0 rounded-[var(--radius-dw)] border border-dw-border bg-dw-card p-4 shadow-sm sm:p-6">
       <h2 className="text-lg font-semibold text-dw-text">{title}</h2>
       {description && (
         <p className="mt-1 mb-4 text-sm text-dw-muted">{description}</p>
@@ -48,8 +48,8 @@ export function ChartCard({
           {emptyMessage}
         </p>
       ) : (
-        <div className="h-64 w-full">
-          <ResponsiveContainer width="100%" height="100%">
+        <div className="h-64 min-w-0 w-full overflow-hidden">
+          <ResponsiveContainer width="100%" height="100%" minWidth={0}>
             <BarChart data={chartData}>
               <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
               <XAxis dataKey="shortName" tick={{ fontSize: 11 }} />

@@ -33,7 +33,7 @@ export function QuestionBox({
   const formDisabled = disabled || isLoading || !hasData
 
   return (
-    <section className="flex h-full min-h-[320px] flex-col rounded-[var(--radius-dw)] border border-dw-border bg-dw-card p-6 shadow-sm">
+    <section className="flex h-full min-w-0 flex-col rounded-[var(--radius-dw)] border border-dw-border bg-dw-card p-4 shadow-sm sm:min-h-[300px] sm:p-6 lg:min-h-[320px]">
       <header>
         <h2 className="text-lg font-semibold text-dw-text">
           AI İş Analistine Sor

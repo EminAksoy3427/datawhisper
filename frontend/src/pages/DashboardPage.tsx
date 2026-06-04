@@ -128,12 +128,12 @@ export function DashboardPage() {
     })) ?? []
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen min-w-0 flex-col overflow-x-hidden">
       <Navbar />
 
-      <main className="mx-auto w-full max-w-[1200px] flex-1 px-4 py-8">
+      <main className="mx-auto w-full min-w-0 max-w-[1200px] flex-1 px-4 py-6 sm:py-8">
         <header className="mb-8">
-          <h1 className="text-2xl font-bold text-dw-text md:text-[32px]">
+          <h1 className="text-2xl font-bold text-dw-text sm:text-[28px] md:text-[32px]">
             İşletme Paneli
           </h1>
           <p className="mt-2 max-w-2xl text-sm leading-relaxed text-dw-muted">
@@ -143,7 +143,7 @@ export function DashboardPage() {
           </p>
         </header>
 
-        <section className="mb-8 rounded-[var(--radius-dw)] border border-dw-border bg-dw-card p-6 shadow-sm">
+        <section className="mb-8 min-w-0 rounded-[var(--radius-dw)] border border-dw-border bg-dw-card p-4 shadow-sm sm:p-6">
           <h2 className="text-lg font-semibold text-dw-text">1. Veriyi Yükleyin</h2>
           <p className="mt-1 text-sm text-dw-muted">
             Analiz için demo veriyi kullanabilir veya kendi CSV / Excel
@@ -166,15 +166,15 @@ export function DashboardPage() {
             <div className="rounded-[var(--radius-dw)] border border-dw-border bg-dw-bg p-4">
               <h3 className="font-medium text-dw-text">Demo veri</h3>
               <p className="mt-2 text-sm leading-relaxed text-dw-muted">
-                Hazır KOBİ örnek verisi: giyim, aksesuar ve ev ürünleri satış
-                kayıtları. Hızlıca uygulamayı denemek için idealdir; giriş
+                40 satırlık sentetik e-ticaret örneği: 8 kategori, kanal ve bölge
+                kırılımları. Hızlıca uygulamayı denemek için idealdir; giriş
                 yapmadan da kullanılabilir.
               </p>
               <button
                 type="button"
                 onClick={() => void handleLoadDemo()}
                 disabled={isLoadingData}
-                className="mt-4 rounded-[var(--radius-dw)] bg-dw-secondary px-4 py-2 text-sm font-medium text-white hover:bg-emerald-600 disabled:cursor-not-allowed disabled:opacity-60"
+                className="mt-4 w-full rounded-[var(--radius-dw)] bg-dw-secondary px-4 py-2 text-sm font-medium text-white hover:bg-emerald-600 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
               >
                 {isLoadingData ? 'Yükleniyor...' : 'Demo Veriyi Yükle'}
               </button>
@@ -195,7 +195,7 @@ export function DashboardPage() {
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
                 disabled={isLoadingData}
-                className="mt-4 rounded-[var(--radius-dw)] border border-dw-border bg-dw-card px-4 py-2 text-sm font-medium text-dw-text hover:bg-white disabled:cursor-not-allowed disabled:opacity-60"
+                className="mt-4 w-full rounded-[var(--radius-dw)] border border-dw-border bg-dw-card px-4 py-2 text-sm font-medium text-dw-text hover:bg-white disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
               >
                 {isLoadingData ? 'Yükleniyor...' : 'Dosya Seç (CSV / Excel)'}
               </button>
@@ -219,11 +219,11 @@ export function DashboardPage() {
 
         {businessSummary && !isLoadingData && (
           <>
-            <section className="mb-8 grid gap-4 lg:grid-cols-2">
+            <section className="mb-8 grid min-w-0 gap-4 lg:grid-cols-2">
               <AnalysisStatusCard summary={businessSummary} />
               <ExecutiveSummaryCard summary={businessSummary} />
             </section>
-            <section className="mb-8">
+            <section className="mb-8 min-w-0">
               <DataUnderstandingCard summary={businessSummary} />
             </section>
           </>
@@ -355,7 +355,8 @@ export function DashboardPage() {
           <p className="mb-4 text-sm text-dw-muted">
             En çok gelir getiren ve en çok iade edilen ürünler.
           </p>
-          <div className="grid gap-6 lg:grid-cols-2">
+          <div className="grid min-w-0 gap-6 lg:grid-cols-2">
+            <div className="min-w-0">
             <ChartCard
               title="En Yüksek Gelirli Ürünler"
               description="Satış gelirine göre ilk 5 ürün."
@@ -363,6 +364,8 @@ export function DashboardPage() {
               valueLabel="Gelir"
               emptyMessage={getRevenueChartEmptyMessage(businessSummary)}
             />
+            </div>
+            <div className="min-w-0">
             <ChartCard
               title="En Çok İade Edilen Ürünler"
               description="İade adedine göre ilk 5 ürün."
@@ -371,10 +374,11 @@ export function DashboardPage() {
               formatValueAsCurrency={false}
               emptyMessage={getReturnChartEmptyMessage(businessSummary)}
             />
+            </div>
           </div>
         </section>
 
-        <section>
+        <section className="min-w-0">
           <h2 className="mb-1 text-lg font-semibold text-dw-text">
             5. AI İş Analisti
           </h2>
@@ -382,7 +386,8 @@ export function DashboardPage() {
             Sorunuzu soldan iletin; yapılandırılmış analiz raporu sağda
             görünür.
           </p>
-          <div className="grid gap-6 lg:grid-cols-2 lg:items-stretch">
+          <div className="grid min-w-0 gap-6 lg:grid-cols-2 lg:items-stretch">
+            <div className="min-w-0">
             <QuestionBox
               summary={businessSummary}
               question={question}
@@ -393,6 +398,8 @@ export function DashboardPage() {
               disabled={!businessSummary || isLoadingData}
               errorMessage={analysisError}
             />
+            </div>
+            <div className="min-w-0">
             <InsightCard
               analysis={analysis}
               isLoading={isAsking}
@@ -401,6 +408,7 @@ export function DashboardPage() {
                 setAnalysisError(null)
               }}
             />
+            </div>
           </div>
         </section>
       </main>

@@ -151,7 +151,7 @@ export function DataUnderstandingCard({ summary }: DataUnderstandingCardProps) {
   )
 
   return (
-    <section className="rounded-[var(--radius-dw)] border border-dw-border bg-dw-card px-5 py-4 shadow-sm">
+    <section className="min-w-0 rounded-[var(--radius-dw)] border border-dw-border bg-dw-card px-4 py-4 shadow-sm sm:px-5">
       <h2 className="text-base font-semibold text-dw-text">Dosya Durumu</h2>
 
       {fieldChips.length > 0 && (

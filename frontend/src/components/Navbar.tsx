@@ -20,7 +20,7 @@ export function Navbar() {
   return (
     <header className="border-b border-dw-border bg-dw-card">
       <nav
-        className="mx-auto flex max-w-[1200px] flex-wrap items-center justify-between gap-4 px-4 py-4"
+        className="mx-auto flex w-full min-w-0 max-w-[1200px] flex-wrap items-center justify-between gap-3 px-4 py-3 sm:gap-4 sm:py-4"
         aria-label="Ana menü"
       >
         <Link to="/" className="flex items-center gap-2">

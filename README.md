@@ -130,4 +130,4 @@ App: [http://localhost:5173](http://localhost:5173)
 
 ## License
 
-Educational / bootcamp MVP project.
+Educational project — built as a full-stack business analytics demo.

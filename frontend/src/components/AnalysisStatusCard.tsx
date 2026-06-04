@@ -27,9 +27,9 @@ function buildStatusSentence(summary: BusinessSummary): string {
   }
 
   if (parts.length === 0) {
-    return `${rowLabel} başarıyla işlendi.`
+    return `${rowLabel} yüklendi; özet metrikler hazır.`
   }
-  return `${rowLabel} başarıyla işlendi. Şu anda ${parts.join(' ve ')}.`
+  return `${rowLabel} yüklendi — ${parts.join(', ')}.`
 }
 
 type StatPillProps = {
@@ -52,23 +52,23 @@ export function AnalysisStatusCard({ summary }: AnalysisStatusCardProps) {
   const { metrics, row_count } = summary
 
   return (
-    <section className="rounded-[var(--radius-dw)] border border-emerald-200 bg-emerald-50 p-5 shadow-sm">
+    <section className="min-w-0 rounded-[var(--radius-dw)] border border-emerald-200 bg-emerald-50 p-4 shadow-sm sm:p-5">
       <header className="flex flex-wrap items-center justify-between gap-2">
-        <div className="flex items-center gap-2">
+        <div className="flex min-w-0 items-center gap-2">
           <span
             aria-hidden
-            className="flex h-7 w-7 items-center justify-center rounded-full bg-dw-secondary text-sm font-semibold text-white"
+            className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-dw-secondary text-sm font-semibold text-white"
           >
             ✓
           </span>
-          <h2 className="text-base font-semibold text-dw-text">Analiz hazır</h2>
+          <h2 className="text-base font-semibold text-dw-text">Verileriniz hazır</h2>
         </div>
-        <span className="rounded-full border border-emerald-200 bg-white px-2.5 py-0.5 text-xs font-medium text-dw-secondary">
-          Canlı veri
+        <span className="shrink-0 rounded-full border border-emerald-200 bg-white px-2.5 py-0.5 text-xs font-medium text-dw-secondary">
+          Özet hazır
         </span>
       </header>
 
-      <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-3 grid grid-cols-2 gap-2 lg:grid-cols-4">
         <StatPill label="Satır sayısı" value={formatNumber(row_count)} />
         <StatPill
           label="Toplam gelir"
@@ -84,7 +84,7 @@ export function AnalysisStatusCard({ summary }: AnalysisStatusCardProps) {
         />
       </div>
 
-      <p className="mt-4 text-sm leading-relaxed text-dw-text">
+      <p className="mt-3 text-sm leading-relaxed text-dw-text">
         {buildStatusSentence(summary)}
       </p>
     </section>
