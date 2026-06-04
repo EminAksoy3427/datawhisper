@@ -80,12 +80,35 @@ def test_medium_confidence_not_used_for_metrics():
 
 
 def test_demo_data_still_works():
+    from app.services.demo_data_service import DEMO_ROW_COUNT
+
     summary = get_demo_business_summary()
-    assert summary["row_count"] == 12
+    assert summary["row_count"] == DEMO_ROW_COUNT
     assert summary["metrics"]["total_revenue"] is not None
     assert summary["metrics"]["total_revenue"] > 0
-    assert len(summary["category_summary"]) > 0
+    assert summary["metrics"]["total_cost"] is not None
+    assert summary["metrics"]["estimated_profit"] is not None
+    assert summary["metrics"]["return_rate"] is not None
     assert len(summary["top_revenue_products"]) > 0
+    assert len(summary["top_returned_products"]) > 0
+    assert len(summary["category_summary"]) >= 5
+
+
+def test_demo_data_detection_metadata():
+    from app.services.demo_data_service import DEMO_ROW_COUNT
+
+    summary = get_demo_business_summary()
+    assert summary["row_count"] == DEMO_ROW_COUNT
+    assert "revenue" in summary["detected_columns"]
+    assert "return_quantity" in summary["detected_columns"]
+    assert "return_reason" in summary["detected_columns"]
+    assert "profit" in summary["detected_columns"]
+    assert summary["detected_dimensions"]["sales_channel"] == "sales_channel"
+    assert summary["detected_dimensions"]["region"] == "region"
+    assert summary["detected_dimensions"]["country"] == "country"
+    assert summary["detected_dimensions"]["order_priority"] == "order_priority"
+    assert summary["detected_column_confidence"]["revenue"] >= CONFIDENCE_ACCEPT
+    assert summary["missing_capabilities"] == []
 
 
 def test_unit_price_derived_revenue():

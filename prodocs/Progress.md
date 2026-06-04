@@ -1,5 +1,13 @@
 # DataWhisper Progress Log
 
+## 2026-06-04 (rich demo dataset)
+
+### Completed
+
+- Replaced 12-row demo with **40 synthetic rows** in `demo_data_service.py`: 8 categories, 4 sales channels, 6 Turkish regions, order priority, unit/total revenue-cost-profit math, returns with reasons.
+- Demo `GET /demo-data` returns full detection metadata and empty `missing_capabilities` (happy path).
+- Tests updated: `DEMO_ROW_COUNT`, detection metadata assertions.
+
 ## 2026-06-04 (Dosya Durumu card — business UX)
 
 ### Completed

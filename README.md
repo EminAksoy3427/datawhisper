@@ -103,7 +103,7 @@ App: [http://localhost:5173](http://localhost:5173)
 
 1. Open the landing page and **Register** or **Login**.
 2. Go to **Panel** (dashboard).
-3. Click **Demo Veriyi Yükle** to load sample SME data, or upload your own `.csv`, `.xlsx`, or `.xls` file — Turkish and English column names are auto-detected (exact + fuzzy matching). The API returns `detected_columns`, `detected_column_confidence`, `detected_dimensions`, `possible_matches` (medium-confidence hints), and Turkish `missing_capabilities` when some metrics cannot be computed.
+3. Click **Demo Veriyi Yükle** to load a 40-row synthetic e-commerce sample (8 categories, channels, regions, returns), or upload your own `.csv`, `.xlsx`, or `.xls` file — Turkish and English column names are auto-detected (exact + fuzzy matching). The API returns `detected_columns`, `detected_column_confidence`, `detected_dimensions`, `possible_matches` (medium-confidence hints), and Turkish `missing_capabilities` when some metrics cannot be computed.
 4. Review **metrics**, **health score**, **category table**, and **charts**.
 5. Type a Turkish business question (e.g. *“En çok iade edilen ürün hangisi?”*) and click **Soru Gönder**.
 6. Read the AI **summary**, **insight**, **recommendation**, and **risk level** on the right.
@@ -115,7 +115,7 @@ App: [http://localhost:5173](http://localhost:5173)
 | POST   | `/auth/register` | No     | Create account           |
 | POST   | `/auth/login`    | No     | Login                    |
 | GET    | `/auth/me`       | Bearer | Current user             |
-| GET    | `/demo-data`     | No     | Sample business summary  |
+| GET    | `/demo-data`     | No     | 40-row synthetic KOBİ sample (sales, returns, channels, regions) |
 | POST   | `/upload-csv`    | Bearer | Analyze uploaded CSV or Excel file (.csv/.xlsx/.xls) with flexible column detection |
 | POST   | `/ask`           | Bearer | AI analysis (Turkish)    |
 
