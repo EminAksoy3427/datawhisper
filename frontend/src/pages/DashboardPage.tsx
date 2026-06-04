@@ -15,7 +15,6 @@ import { LoadingSpinner } from '@/components/LoadingSpinner'
 import { MetricCard } from '@/components/MetricCard'
 import { Navbar } from '@/components/Navbar'
 import { QuestionBox } from '@/components/QuestionBox'
-import { QuestionTemplates } from '@/components/QuestionTemplates'
 import { useAuth } from '@/context/AuthContext'
 import { getApiErrorMessage } from '@/lib/apiError'
 import {
@@ -377,35 +376,23 @@ export function DashboardPage() {
 
         <section>
           <h2 className="mb-1 text-lg font-semibold text-dw-text">
-            5. Soru ve Yapay Zeka
+            5. AI İş Analisti
           </h2>
           <p className="mb-4 text-sm text-dw-muted">
-            Verilerinize dayalı Türkçe sorular sorun; yanıtlar sağ tarafta
+            Sorunuzu soldan iletin; yapılandırılmış analiz raporu sağda
             görünür.
           </p>
-          <div className="grid gap-6 lg:grid-cols-2">
-            <div className="space-y-4">
-              <QuestionTemplates
-                onSelect={(template) => {
-                  setQuestion(template)
-                  setAnalysisError(null)
-                }}
-                disabled={!businessSummary || isLoadingData || isAsking}
-              />
-              <QuestionBox
-                question={question}
-                onQuestionChange={setQuestion}
-                onSubmit={() => void handleAskQuestion()}
-                isLoading={isAsking}
-                disabled={!businessSummary || isLoadingData}
-                warningMessage={
-                  !businessSummary
-                    ? 'Soru gönderebilmek için önce demo veri yükleyin veya CSV / Excel dosyanızı analiz edin.'
-                    : null
-                }
-                errorMessage={analysisError}
-              />
-            </div>
+          <div className="grid gap-6 lg:grid-cols-2 lg:items-stretch">
+            <QuestionBox
+              summary={businessSummary}
+              question={question}
+              onQuestionChange={setQuestion}
+              onExampleSelect={() => setAnalysisError(null)}
+              onSubmit={() => void handleAskQuestion()}
+              isLoading={isAsking}
+              disabled={!businessSummary || isLoadingData}
+              errorMessage={analysisError}
+            />
             <InsightCard
               analysis={analysis}
               isLoading={isAsking}

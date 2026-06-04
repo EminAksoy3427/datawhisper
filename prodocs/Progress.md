@@ -1,5 +1,12 @@
 # DataWhisper Progress Log
 
+## 2026-06-04 (AI analyst section polish)
+
+### Completed
+
+- Merged **AI İş Analistine Sor** card: örnek sorular + textarea + “AI Analizi Oluştur” CTA; capability-aware chips (iade/kategori/kâr marjı).
+- **InsightCard**: premium empty preview (Ana bulgu / Neden önemli / Aksiyonlar), two-line loading copy; matched min-height with question card on desktop.
+
 ## 2026-06-04 (rich demo dataset)
 
 ### Completed

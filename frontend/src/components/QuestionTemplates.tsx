@@ -1,30 +1,66 @@
-type QuestionTemplatesProps = {
+import type { BusinessSummary } from '@/api/types/data'
+
+type QuestionTemplate = {
+  text: string
+  needsReturn?: boolean
+  needsCategory?: boolean
+  needsProfitMargin?: boolean
+}
+
+const QUESTION_TEMPLATES: QuestionTemplate[] = [
+  { text: 'En riskli kategori hangisi?', needsCategory: true },
+  { text: 'En çok iade edilen ürünler hangileri?', needsReturn: true },
+  { text: 'Hangi ürünlere odaklanmalıyım?' },
+  { text: 'Kâr marjını nasıl artırabilirim?', needsProfitMargin: true },
+  { text: 'Bana 3 aksiyon öner' },
+]
+
+export function getExampleQuestions(
+  summary: BusinessSummary | null,
+): string[] {
+  if (!summary) {
+    return []
+  }
+
+  const { metrics, category_summary } = summary
+  const hasReturn = metrics.return_rate !== null
+  const hasCategory = category_summary.length > 0
+  const hasProfitMargin = metrics.profit_margin !== null
+
+  return QUESTION_TEMPLATES.filter((template) => {
+    if (template.needsReturn && !hasReturn) {
+      return false
+    }
+    if (template.needsCategory && !hasCategory) {
+      return false
+    }
+    if (template.needsProfitMargin && !hasProfitMargin) {
+      return false
+    }
+    return true
+  }).map((template) => template.text)
+}
+
+type ExampleQuestionChipsProps = {
+  questions: string[]
   onSelect: (question: string) => void
   disabled?: boolean
 }
 
-const TEMPLATES: string[] = [
-  'En riskli kategori hangisi?',
-  'En çok iade edilen ürünler hangileri?',
-  'İade oranı neden yükseliyor?',
-  'Hangi ürünlere odaklanmalıyım?',
-  'Bana 3 aksiyon öner',
-]
-
-export function QuestionTemplates({
+export function ExampleQuestionChips({
+  questions,
   onSelect,
   disabled = false,
-}: QuestionTemplatesProps) {
+}: ExampleQuestionChipsProps) {
+  if (questions.length === 0) {
+    return null
+  }
+
   return (
-    <section className="rounded-[var(--radius-dw)] border border-dw-border bg-dw-card p-4 shadow-sm">
-      <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <p className="text-sm font-medium text-dw-text">Hazır sorular</p>
-        <p className="text-xs text-dw-muted">
-          Tıklayın, soru kutusuna eklensin
-        </p>
-      </div>
-      <ul className="mt-3 flex flex-wrap gap-2">
-        {TEMPLATES.map((question) => (
+    <div>
+      <p className="text-xs font-medium text-dw-muted">Örnek sorular</p>
+      <ul className="mt-2 flex flex-wrap gap-2">
+        {questions.map((question) => (
           <li key={question}>
             <button
               type="button"
@@ -37,6 +73,6 @@ export function QuestionTemplates({
           </li>
         ))}
       </ul>
-    </section>
+    </div>
   )
 }
