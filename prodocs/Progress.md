@@ -1,5 +1,14 @@
 # DataWhisper Progress Log
 
+## 2026-06-03 (auth pages SaaS polish)
+
+### Completed
+
+- Added shared `AuthLayout` (`src/components/AuthLayout.tsx`) with a two-column desktop layout: left product value panel (title, copy, four check-mark benefits, security trust note) and right auth form card. Mobile stacks vertically with the value panel above the form.
+- Polished `LoginPage`: new title “Tekrar hoş geldiniz”, subtitle, post-submit note about demo/own data, soft gradient background matching the landing page. Auth logic, fields, loading/error states, and redirect unchanged.
+- Polished `RegisterPage`: new title “DataWhisper’a başlayın”, subtitle, “Kredi kartı gerekmez…” note under the button. Same auth behavior preserved.
+- Reuses existing Tailwind tokens (`dw-primary`, `dw-secondary`, `dw-bg`, `dw-card`, `dw-border`, `--radius-dw`). No “Bootcamp MVP” text; Navbar unchanged.
+
 ## 2026-05-25 (landing page SaaS polish)
 
 ### Completed
