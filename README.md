@@ -451,7 +451,6 @@ Interested in:
 - Full-Stack Web Applications
 
 **LinkedIn:** https://www.linkedin.com/in/emin-aksoy/
-**GitHub:** https://github.com/EminAksoy3427
 
 ---
 
