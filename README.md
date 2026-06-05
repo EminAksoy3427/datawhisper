@@ -450,8 +450,7 @@ Interested in:
 - Product Development
 - Full-Stack Web Applications
 
-**LinkedIn:** https://www.linkedin.com/in/YOUR-LINKEDIN-USERNAME
-
+**LinkedIn:** https://www.linkedin.com/in/emin-aksoy/
 **GitHub:** https://github.com/EminAksoy3427
 
 ---
