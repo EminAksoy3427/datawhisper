@@ -1,5 +1,11 @@
 # DataWhisper Progress Log
 
+## 2026-06-05 (GitHub presentation polish)
+
+### Completed
+
+- Polished root README with final project overview, live deployment links, architecture, screenshots section, setup instructions, security notes, and roadmap. Added docs/screenshots folder structure for GitHub presentation.
+
 ## 2026-06-04 (Supabase PostgreSQL readiness)
 
 ### Completed
