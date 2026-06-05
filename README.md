@@ -33,7 +33,7 @@ Small e-commerce sellers, boutique manufacturers, and retailers often manage the
 | Backend  | FastAPI, Python, Pandas, SQLAlchemy              |
 | Auth     | JWT (Bearer tokens)                               |
 | AI       | OpenAI API                                        |
-| Database | SQLite (development)                              |
+| Database | SQLite (local dev); PostgreSQL / Supabase (production) |
 
 ## Folder Structure
 
@@ -60,7 +60,7 @@ datawhisper/
 
 | Variable                     | Description                          |
 | ---------------------------- | ------------------------------------ |
-| `DATABASE_URL`               | SQLite URL (default in example)      |
+| `DATABASE_URL`               | Local: `sqlite:///./datawhisper.db` (default). Production: Supabase PostgreSQL URL (`postgresql://…`) |
 | `JWT_SECRET_KEY`               | Secret for signing JWT tokens        |
 | `ACCESS_TOKEN_EXPIRE_MINUTES`  | Token lifetime (minutes)             |
 | `OPENAI_API_KEY`               | OpenAI API key for AI analysis       |
@@ -73,6 +73,8 @@ datawhisper/
 | `VITE_API_BASE_URL`   | Backend URL (e.g. `http://127.0.0.1:8000`) |
 
 > **Security:** Real `.env` files and API keys are **not** committed to Git. Use the `.env.example` files as templates only.
+
+**Database:** Local development uses SQLite by default (`DATABASE_URL` in `backend/.env.example`). For production (e.g. Supabase), set `DATABASE_URL` to your PostgreSQL connection string; install backend dependencies so the `psycopg2` driver is available.
 
 ### Run the Backend
 
@@ -126,7 +128,7 @@ App: [http://localhost:5173](http://localhost:5173)
 - Export reports (PDF/Excel)
 - Shopify / Trendyol integrations
 - Password reset and email verification
-- PostgreSQL for production deployment
+- Connection pooling / migrations for PostgreSQL at scale
 
 ## License
 

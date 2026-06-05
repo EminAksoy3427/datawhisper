@@ -1,5 +1,17 @@
 # DataWhisper Progress Log
 
+## 2026-06-04 (Supabase PostgreSQL readiness)
+
+### Completed
+
+- Added `psycopg2-binary` to `backend/requirements.txt` for SQLAlchemy PostgreSQL URLs.
+- Confirmed `database.py` uses SQLite `check_same_thread` only for `sqlite://` URLs; PostgreSQL uses default engine options.
+- Documented local SQLite vs production `DATABASE_URL` in `backend/.env.example`, `README.md`, and this log.
+
+### Verified
+
+- Backend `python -m pytest` passes with SQLite (no Supabase credentials required).
+
 ## 2026-06-04 (AI analyst section polish)
 
 ### Completed
