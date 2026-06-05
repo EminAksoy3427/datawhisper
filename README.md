@@ -20,7 +20,7 @@ Transform CSV and Excel sales data into actionable business insights using AI, d
 
 **Frontend:** https://datawhisper-alpha.vercel.app
 
-**Backend API:** https://datawhisper-backend-xcgl.onrender.com
+**Backend Health Check:** https://datawhisper-backend-xcgl.onrender.com/health
 
 **API Documentation:** https://datawhisper-backend-xcgl.onrender.com/docs
 
