@@ -30,8 +30,8 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:5173",
         "http://127.0.0.1:5173",
-        "http://localhost:5174",
-        "http://127.0.0.1:5174",
+        "https://datawhisper-alpha.vercel.app",
+        "https://datawhisper-is1ud8ofj-emin-aksoy-s-projects.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
