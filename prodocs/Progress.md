@@ -1,5 +1,11 @@
 # DataWhisper Progress Log
 
+## 2026-06-14 (Final UI polish and realistic demo data)
+
+### Completed
+
+- Final UI polish: removed technical email verification copy from signup and adjusted demo data to produce a more realistic business health score.
+
 ## 2026-06-14 (Auth UI without verified email domain)
 
 ### Completed

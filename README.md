@@ -372,8 +372,8 @@ npm run build
 1. Open the landing page.
 2. Register a new user or log in.
 3. Go to the dashboard.
-4. Load demo business data or upload a CSV/Excel file.
-5. Review business metrics, charts, and health score.
+4. Load the built-in **realistic SME demo dataset** or upload a CSV/Excel file.
+5. Review business metrics, charts, and health score (demo data reflects a healthy but imperfect small business).
 6. Ask a Turkish business question.
 7. Read the AI-generated insight and recommended actions.
 

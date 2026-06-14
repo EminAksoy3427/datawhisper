@@ -167,11 +167,6 @@ export function RegisterPage() {
           minLength={8}
         />
 
-        <p className="text-xs leading-relaxed text-dw-muted">
-          E-posta doğrulama altyapısı hazırdır; canlı doğrulama özel domain
-          yapılandırması sonrası aktif edilir.
-        </p>
-
         <button
           type="submit"
           disabled={isSubmitting}

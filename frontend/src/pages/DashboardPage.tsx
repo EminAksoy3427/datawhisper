@@ -168,9 +168,9 @@ export function DashboardPage() {
             <div className="rounded-[var(--radius-dw)] border border-dw-border bg-dw-bg p-4">
               <h3 className="font-medium text-dw-text">Demo veri</h3>
               <p className="mt-2 text-sm leading-relaxed text-dw-muted">
-                40 satırlık sentetik e-ticaret örneği: 8 kategori, kanal ve bölge
-                kırılımları. Hızlıca uygulamayı denemek için idealdir; giriş
-                yapmadan da kullanılabilir.
+                40 satırlık gerçekçi KOBİ e-ticaret örneği: giyim, gıda, ev yaşam
+                ve aksesuar kırılımları. Hızlıca uygulamayı denemek için idealdir;
+                giriş yapmadan da kullanılabilir.
               </p>
               <button
                 type="button"

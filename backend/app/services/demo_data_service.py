@@ -8,46 +8,51 @@ from app.services.csv_service import build_business_summary
 
 # (product_name, category, supplier, unit_price, unit_cost, return_rate_hint)
 _PRODUCT_CATALOG: list[tuple[str, str, str, int, int, float]] = [
-    ("Pamuk Oversize Tişört", "Giyim", "ModaTedarik", 450, 270, 0.11),
-    ("Keten Yazlık Elbise", "Giyim", "ModaTedarik", 800, 520, 0.14),
-    ("Yün Triko Kazak", "Giyim", "ModaTedarik", 800, 520, 0.10),
-    ("Spor Tayt", "Spor", "AktifLine", 500, 300, 0.08),
-    ("Koşu Ayakkabısı", "Spor", "AktifLine", 1200, 720, 0.07),
-    ("Yoga Matı", "Spor", "AktifLine", 350, 175, 0.04),
-    ("Bluetooth Kulaklık", "Elektronik", "TeknoKaynak", 900, 630, 0.13),
-    ("Akıllı Saat Kordonu", "Elektronik", "TeknoKaynak", 300, 150, 0.05),
-    ("Taşınabilir Şarj Cihazı", "Elektronik", "TeknoKaynak", 550, 385, 0.09),
-    ("USB-C Hub Adaptör", "Elektronik", "TeknoKaynak", 420, 252, 0.06),
-    ("Deri Çapraz Çanta", "Aksesuar", "AksesuarPlus", 1500, 900, 0.06),
-    ("Minimalist Sırt Çantası", "Aksesuar", "AksesuarPlus", 680, 408, 0.05),
-    ("Seramik Kahve Kupası Seti", "Ev Yaşam", "EvKonfor", 350, 210, 0.07),
-    ("Aromaterapi Mum Seti", "Ev Yaşam", "EvKonfor", 300, 165, 0.08),
-    ("Paslanmaz Termos", "Ev Yaşam", "EvKonfor", 500, 300, 0.05),
-    ("Bambu Kesme Tahtası", "Ev Yaşam", "EvKonfor", 280, 154, 0.04),
-    ("Organik Bebek Body", "Bebek", "MiniDunya", 300, 180, 0.09),
-    ("Çocuk Oyuncak Seti", "Bebek", "MiniDunya", 400, 240, 0.10),
-    ("Bebek Battaniyesi", "Bebek", "MiniDunya", 450, 270, 0.06),
-    ("Nemlendirici Yüz Kremi", "Kozmetik", "GüzellikPro", 420, 210, 0.03),
-    ("Doğal Şampuan Seti", "Kozmetik", "GüzellikPro", 380, 190, 0.04),
-    ("Ruj ve Allık Paleti", "Kozmetik", "GüzellikPro", 520, 260, 0.05),
-    ("Defter ve Kalem Seti", "Kırtasiye", "OfisDünyası", 180, 90, 0.02),
-    ("Planlayıcı Ajanda", "Kırtasiye", "OfisDünyası", 220, 110, 0.03),
-    ("Masa Lambası", "Kırtasiye", "OfisDünyası", 390, 234, 0.04),
-    ("Kablosuz Mouse", "Elektronik", "TeknoKaynak", 480, 336, 0.08),
-    ("Pamuklu Pijama Takımı", "Giyim", "ModaTedarik", 620, 372, 0.12),
-    ("Polar Mont", "Giyim", "ModaTedarik", 1100, 715, 0.09),
-    ("Dumbbell Seti 5kg", "Spor", "AktifLine", 750, 450, 0.05),
-    ("Silikon Mutfak Gereç Seti", "Ev Yaşam", "EvKonfor", 320, 192, 0.06),
-    ("Bebek Bezi Paketi", "Bebek", "MiniDunya", 550, 385, 0.07),
-    ("El Çantası", "Aksesuar", "AksesuarPlus", 890, 534, 0.05),
-    ("Vitamin C Serum", "Kozmetik", "GüzellikPro", 650, 325, 0.04),
-    ("Sticker ve Etiket Paketi", "Kırtasiye", "OfisDünyası", 95, 48, 0.02),
-    ("Kulaklık Kılıfı", "Aksesuar", "AksesuarPlus", 120, 72, 0.03),
-    ("Çay Demleme Seti", "Ev Yaşam", "EvKonfor", 410, 246, 0.05),
-    ("Eşofman Takımı", "Spor", "AktifLine", 680, 408, 0.07),
-    ("Tablet Standı", "Elektronik", "TeknoKaynak", 260, 156, 0.04),
-    ("Bebek Tulum", "Bebek", "MiniDunya", 380, 228, 0.08),
-    ("Günlük Cilt Bakım Seti", "Kozmetik", "GüzellikPro", 720, 360, 0.03),
+    # Giyim — yüksek iade, beden/renk sorunları
+    ("Pamuk Oversize Tişört", "Giyim", "ModaTedarik", 450, 315, 0.20),
+    ("Keten Yazlık Elbise", "Giyim", "ModaTedarik", 820, 574, 0.22),
+    ("Yün Triko Kazak", "Giyim", "ModaTedarik", 780, 546, 0.18),
+    ("Pamuklu Pijama Takımı", "Giyim", "ModaTedarik", 620, 434, 0.20),
+    ("Polar Mont", "Giyim", "ModaTedarik", 1100, 770, 0.17),
+    ("Slim Fit Gömlek", "Giyim", "ModaTedarik", 520, 364, 0.21),
+    ("Eşofman Takımı", "Giyim", "ModaTedarik", 680, 476, 0.18),
+    ("Denim Ceket", "Giyim", "ModaTedarik", 950, 665, 0.19),
+    ("Basic Hoodie", "Giyim", "ModaTedarik", 590, 413, 0.22),
+    ("Şort ve Atlet Seti", "Giyim", "ModaTedarik", 380, 266, 0.20),
+    # Elektronik Aksesuar — yüksek ciro, orta marj, orta iade
+    ("Bluetooth Kulaklık", "Elektronik Aksesuar", "TeknoKaynak", 920, 680, 0.13),
+    ("Taşınabilir Şarj Cihazı", "Elektronik Aksesuar", "TeknoKaynak", 560, 414, 0.12),
+    ("USB-C Hub Adaptör", "Elektronik Aksesuar", "TeknoKaynak", 430, 318, 0.11),
+    ("Kablosuz Mouse", "Elektronik Aksesuar", "TeknoKaynak", 490, 363, 0.12),
+    ("Akıllı Saat Kordonu", "Elektronik Aksesuar", "TeknoKaynak", 310, 229, 0.11),
+    ("Tablet Standı", "Elektronik Aksesuar", "TeknoKaynak", 270, 200, 0.10),
+    ("Kulaklık Kılıfı", "Elektronik Aksesuar", "TeknoKaynak", 130, 96, 0.12),
+    ("Telefon Tutucu Araç", "Elektronik Aksesuar", "TeknoKaynak", 240, 178, 0.11),
+    # Ev Yaşam — stabil marj, düşük iade
+    ("Seramik Kahve Kupası Seti", "Ev Yaşam", "EvKonfor", 360, 216, 0.04),
+    ("Aromaterapi Mum Seti", "Ev Yaşam", "EvKonfor", 310, 186, 0.05),
+    ("Paslanmaz Termos", "Ev Yaşam", "EvKonfor", 520, 312, 0.04),
+    ("Bambu Kesme Tahtası", "Ev Yaşam", "EvKonfor", 290, 174, 0.03),
+    ("Silikon Mutfak Gereç Seti", "Ev Yaşam", "EvKonfor", 330, 198, 0.05),
+    ("Çay Demleme Seti", "Ev Yaşam", "EvKonfor", 420, 252, 0.04),
+    ("Pamuklu Nevresim Takımı", "Ev Yaşam", "EvKonfor", 780, 468, 0.03),
+    ("Cam Saklama Kapları", "Ev Yaşam", "EvKonfor", 410, 246, 0.04),
+    # Kişisel Bakım — iyi marj, düşük iade
+    ("Nemlendirici Yüz Kremi", "Kişisel Bakım", "GüzellikPro", 430, 258, 0.03),
+    ("Doğal Şampuan Seti", "Kişisel Bakım", "GüzellikPro", 390, 234, 0.04),
+    ("Ruj ve Allık Paleti", "Kişisel Bakım", "GüzellikPro", 540, 324, 0.03),
+    ("Vitamin C Serum", "Kişisel Bakım", "GüzellikPro", 660, 396, 0.02),
+    ("Günlük Cilt Bakım Seti", "Kişisel Bakım", "GüzellikPro", 740, 444, 0.03),
+    ("El ve Vücut Losyonu", "Kişisel Bakım", "GüzellikPro", 320, 192, 0.04),
+    ("Diş Beyazlatma Seti", "Kişisel Bakım", "GüzellikPro", 480, 288, 0.03),
+    ("Saç Bakım Yağı", "Kişisel Bakım", "GüzellikPro", 360, 216, 0.03),
+    # Gıda — düşük marj, operasyonel baskı
+    ("Granola Karışımı 500g", "Gıda", "LezzetDepo", 290, 232, 0.10),
+    ("Muesli ve Yulaf Paketi", "Gıda", "LezzetDepo", 320, 256, 0.11),
+    ("Protein Bar Kutusu", "Gıda", "LezzetDepo", 260, 208, 0.07),
+    ("Filtre Kahve 1kg", "Gıda", "LezzetDepo", 480, 384, 0.06),
+    ("Organik Zeytinyağı 750ml", "Gıda", "LezzetDepo", 620, 496, 0.05),
+    ("Glutensiz Kraker Paketi", "Gıda", "LezzetDepo", 210, 168, 0.12),
 ]
 
 _SALES_CHANNELS = [
@@ -66,22 +71,18 @@ _REGIONS = [
     "Güneydoğu Anadolu",
 ]
 
-_ORDER_PRIORITIES = ["Düşük", "Orta", "Yüksek"]
-
-_RETURN_REASONS = [
-    "Beden uyumsuz",
-    "Renk farkı",
-    "Hasarlı ürün",
-    "Kırık parça",
-    "Bağlantı sorunu",
-    "Yanlış model",
-    "Kalite beklentisi",
-    "Eksik parça",
-    "Koku beklentisi",
-    "Sızdırma",
-    "Geç teslimat",
-    "Müşteri vazgeçti",
-]
+_RETURN_REASONS_BY_CATEGORY: dict[str, list[str]] = {
+    "Giyim": ["Beden uyumsuz", "Renk farkı", "Kalite beklentisi", "Müşteri vazgeçti"],
+    "Elektronik Aksesuar": [
+        "Bağlantı sorunu",
+        "Kırık parça",
+        "Yanlış model",
+        "Hasarlı ürün",
+    ],
+    "Ev Yaşam": ["Hasarlı ürün", "Geç teslimat", "Eksik parça"],
+    "Kişisel Bakım": ["Koku beklentisi", "Alerjik reaksiyon", "Müşteri vazgeçti"],
+    "Gıda": ["Geç teslimat", "Hasarlı ürün", "Son kullanma yakın", "Sızdırma"],
+}
 
 _DATES = [
     "2026-01-05",
@@ -126,12 +127,12 @@ _DATES = [
     "2026-05-02",
 ]
 
-# Quantities vary by row to keep totals realistic.
 _SALES_QUANTITIES = [
-    42, 28, 24, 33, 19, 31, 26, 37, 22, 35,
-    48, 29, 41, 18, 27, 36, 44, 21, 39, 32,
-    25, 46, 30, 38, 20, 43, 34, 23, 40, 17,
-    45, 16, 47, 14, 49, 13, 50, 15, 12, 11,
+    44, 36, 32, 41, 28, 39, 34, 37, 42, 30,
+    38, 33, 29, 31, 26, 24, 35, 27,
+    40, 32, 36, 28, 34, 30, 42, 38,
+    36, 33, 31, 29, 37, 35, 34, 32,
+    45, 40, 38, 42, 36, 48,
 ]
 
 
@@ -150,6 +151,11 @@ def _order_priority(revenue: int, index: int) -> str:
     return "Düşük"
 
 
+def _return_reason(category: str, index: int) -> str:
+    reasons = _RETURN_REASONS_BY_CATEGORY.get(category, ["Müşteri vazgeçti"])
+    return reasons[index % len(reasons)]
+
+
 def _build_demo_rows() -> list[dict[str, object]]:
     rows: list[dict[str, object]] = []
     for index, product in enumerate(_PRODUCT_CATALOG):
@@ -159,9 +165,7 @@ def _build_demo_rows() -> list[dict[str, object]]:
         cost = sales_quantity * unit_cost
         profit = revenue - cost
         returns = _return_quantity(sales_quantity, return_rate, index)
-        reason = (
-            _RETURN_REASONS[index % len(_RETURN_REASONS)] if returns > 0 else ""
-        )
+        reason = _return_reason(category, index) if returns > 0 else ""
 
         rows.append(
             {
