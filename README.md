@@ -394,6 +394,7 @@ En çok iade edilen ürünler hangileri?
 - Supabase PostgreSQL credentials are stored only in backend environment variables.
 - Frontend never receives private API keys or database credentials.
 - JWT is used for protected API routes.
+- Password reset and email verification use hashed, single-use, time-limited tokens sent via Resend.
 - Uploaded files are analyzed for insights and are not permanently stored in the MVP version.
 
 ---

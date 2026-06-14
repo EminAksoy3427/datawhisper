@@ -3,7 +3,15 @@ import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { AuthLayout } from '@/components/AuthLayout'
 import { FormAlert } from '@/components/FormAlert'
 import { AuthLoadingScreen } from '@/components/AuthLoadingScreen'
+import { PasswordInput } from '@/components/PasswordInput'
 import { useAuth } from '@/context/AuthContext'
+import {
+  validatePasswordMinLength,
+  validatePasswordsMatch,
+  validateRequiredEmail,
+  validateRequiredName,
+  validateRequiredPassword,
+} from '@/lib/authValidation'
 
 const inputClassName =
   'w-full rounded-[var(--radius-dw)] border border-dw-border px-3 py-2 text-sm outline-none focus:border-dw-primary focus:ring-2 focus:ring-blue-100 disabled:opacity-60'
@@ -14,6 +22,7 @@ export function RegisterPage() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -29,8 +38,33 @@ export function RegisterPage() {
     event.preventDefault()
     setError(null)
 
-    if (password.length < 6) {
-      setError('Şifre en az 6 karakter olmalıdır.')
+    const nameError = validateRequiredName(name)
+    if (nameError) {
+      setError(nameError)
+      return
+    }
+
+    const emailError = validateRequiredEmail(email)
+    if (emailError) {
+      setError(emailError)
+      return
+    }
+
+    const passwordError = validateRequiredPassword(password)
+    if (passwordError) {
+      setError(passwordError)
+      return
+    }
+
+    const minLengthError = validatePasswordMinLength(password)
+    if (minLengthError) {
+      setError(minLengthError)
+      return
+    }
+
+    const matchError = validatePasswordsMatch(password, confirmPassword)
+    if (matchError) {
+      setError(matchError)
       return
     }
 
@@ -110,26 +144,33 @@ export function RegisterPage() {
             className={inputClassName}
           />
         </div>
-        <div>
-          <label
-            htmlFor="register-password"
-            className="mb-1 block text-sm font-medium text-dw-text"
-          >
-            Şifre
-          </label>
-          <input
-            id="register-password"
-            type="password"
-            required
-            minLength={6}
-            autoComplete="new-password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            placeholder="En az 6 karakter"
-            disabled={isSubmitting}
-            className={inputClassName}
-          />
-        </div>
+
+        <PasswordInput
+          id="register-password"
+          label="Şifre"
+          value={password}
+          onChange={setPassword}
+          placeholder="En az 8 karakter"
+          autoComplete="new-password"
+          disabled={isSubmitting}
+          minLength={8}
+        />
+
+        <PasswordInput
+          id="register-confirm-password"
+          label="Şifre Tekrar"
+          value={confirmPassword}
+          onChange={setConfirmPassword}
+          placeholder="Şifrenizi tekrar girin"
+          autoComplete="new-password"
+          disabled={isSubmitting}
+          minLength={8}
+        />
+
+        <p className="text-xs leading-relaxed text-dw-muted">
+          E-posta adresinize doğrulama bağlantısı gönderilecektir.
+        </p>
+
         <button
           type="submit"
           disabled={isSubmitting}

@@ -3,10 +3,18 @@ import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { AuthLayout } from '@/components/AuthLayout'
 import { FormAlert } from '@/components/FormAlert'
 import { AuthLoadingScreen } from '@/components/AuthLoadingScreen'
+import { PasswordInput } from '@/components/PasswordInput'
 import { useAuth } from '@/context/AuthContext'
+import {
+  validateRequiredEmail,
+  validateRequiredPassword,
+} from '@/lib/authValidation'
 
 const inputClassName =
   'w-full rounded-[var(--radius-dw)] border border-dw-border px-3 py-2 text-sm outline-none focus:border-dw-primary focus:ring-2 focus:ring-blue-100 disabled:opacity-60'
+
+const GENERIC_LOGIN_ERROR =
+  'E-posta veya şifre hatalı. Bilgilerinizi kontrol edip tekrar deneyin.'
 
 export function LoginPage() {
   const navigate = useNavigate()
@@ -27,6 +35,19 @@ export function LoginPage() {
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     setError(null)
+
+    const emailError = validateRequiredEmail(email)
+    if (emailError) {
+      setError(emailError)
+      return
+    }
+
+    const passwordError = validateRequiredPassword(password)
+    if (passwordError) {
+      setError(passwordError)
+      return
+    }
+
     setIsSubmitting(true)
 
     try {
@@ -34,9 +55,7 @@ export function LoginPage() {
       navigate('/dashboard', { replace: true })
     } catch (submitError) {
       setError(
-        submitError instanceof Error
-          ? submitError.message
-          : 'Giriş yapılamadı. Lütfen tekrar deneyin.',
+        submitError instanceof Error ? submitError.message : GENERIC_LOGIN_ERROR,
       )
     } finally {
       setIsSubmitting(false)
@@ -80,25 +99,25 @@ export function LoginPage() {
             className={inputClassName}
           />
         </div>
-        <div>
-          <label
-            htmlFor="password"
-            className="mb-1 block text-sm font-medium text-dw-text"
+
+        <PasswordInput
+          id="password"
+          label="Şifre"
+          value={password}
+          onChange={setPassword}
+          autoComplete="current-password"
+          disabled={isSubmitting}
+        />
+
+        <div className="flex justify-end">
+          <Link
+            to="/forgot-password"
+            className="text-sm font-medium text-dw-primary"
           >
-            Şifre
-          </label>
-          <input
-            id="password"
-            type="password"
-            required
-            autoComplete="current-password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            placeholder="••••••••"
-            disabled={isSubmitting}
-            className={inputClassName}
-          />
+            Şifremi unuttum?
+          </Link>
         </div>
+
         <button
           type="submit"
           disabled={isSubmitting}

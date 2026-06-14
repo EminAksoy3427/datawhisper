@@ -19,6 +19,7 @@ type AuthContextValue = {
   login: (payload: LoginPayload) => Promise<void>
   register: (payload: RegisterPayload) => Promise<void>
   logout: () => void
+  refreshUser: () => Promise<void>
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null)
@@ -76,8 +77,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       const response = await loginUser(payload)
       applyAuthSession(response.access_token, response.user, setUser)
-    } catch (error) {
-      throw new Error(getApiErrorMessage(error))
+    } catch {
+      throw new Error(
+        'E-posta veya şifre hatalı. Bilgilerinizi kontrol edip tekrar deneyin.',
+      )
     }
   }, [])
 
@@ -95,6 +98,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(null)
   }, [])
 
+  const refreshUser = useCallback(async () => {
+    const currentUser = await fetchCurrentUser()
+    setUser(currentUser)
+  }, [])
+
   const value = useMemo<AuthContextValue>(
     () => ({
       user,
@@ -103,8 +111,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       login,
       register,
       logout,
+      refreshUser,
     }),
-    [user, isLoading, login, register, logout],
+    [user, isLoading, login, register, logout, refreshUser],
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

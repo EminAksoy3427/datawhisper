@@ -15,6 +15,7 @@ import { LoadingSpinner } from '@/components/LoadingSpinner'
 import { MetricCard } from '@/components/MetricCard'
 import { Navbar } from '@/components/Navbar'
 import { QuestionBox } from '@/components/QuestionBox'
+import { EmailVerificationNotice } from '@/components/EmailVerificationNotice'
 import { useAuth } from '@/context/AuthContext'
 import { getApiErrorMessage } from '@/lib/apiError'
 import {
@@ -142,6 +143,8 @@ export function DashboardPage() {
             zekâdan öneri alın.
           </p>
         </header>
+
+        <EmailVerificationNotice />
 
         <section className="mb-8 min-w-0 rounded-[var(--radius-dw)] border border-dw-border bg-dw-card p-4 shadow-sm sm:p-6">
           <h2 className="text-lg font-semibold text-dw-text">1. Veriyi Yükleyin</h2>

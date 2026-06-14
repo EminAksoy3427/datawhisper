@@ -4,6 +4,10 @@ const ERROR_MESSAGES: Record<string, string> = {
   'An account with this email already exists.':
     'Bu e-posta adresi zaten kayıtlı.',
   'Invalid email or password.': 'E-posta veya şifre hatalı.',
+  'Invalid or expired reset token.':
+    'Geçersiz veya süresi dolmuş sıfırlama bağlantısı.',
+  'Invalid or expired verification token.':
+    'Geçersiz veya süresi dolmuş doğrulama bağlantısı.',
 }
 
 export function getApiErrorMessage(error: unknown): string {

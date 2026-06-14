@@ -29,7 +29,28 @@ def get_db() -> Generator[Session, None, None]:
         db.close()
 
 
+def _ensure_user_email_verified_column() -> None:
+    from sqlalchemy import inspect, text
+
+    inspector = inspect(engine)
+    if "users" not in inspector.get_table_names():
+        return
+
+    column_names = {column["name"] for column in inspector.get_columns("users")}
+    if "email_verified" in column_names:
+        return
+
+    default_value = "0" if settings.database_url.startswith("sqlite") else "FALSE"
+    with engine.begin() as connection:
+        connection.execute(
+            text(
+                f"ALTER TABLE users ADD COLUMN email_verified BOOLEAN NOT NULL DEFAULT {default_value}"
+            )
+        )
+
+
 def init_db() -> None:
     from app.db import models  # noqa: F401
 
     Base.metadata.create_all(bind=engine)
+    _ensure_user_email_verified_column()

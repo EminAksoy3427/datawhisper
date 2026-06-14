@@ -1,5 +1,11 @@
 # DataWhisper Progress Log
 
+## 2026-06-14 (Production-style auth improvements)
+
+### Completed
+
+- Added production-style auth improvements including password reset email flow, email verification flow, stronger form validation, password visibility toggles, and non-blocking verification notice.
+
 ## 2026-06-05 (GitHub presentation polish)
 
 ### Completed
