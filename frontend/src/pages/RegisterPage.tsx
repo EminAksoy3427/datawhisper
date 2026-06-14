@@ -168,7 +168,8 @@ export function RegisterPage() {
         />
 
         <p className="text-xs leading-relaxed text-dw-muted">
-          E-posta adresinize doğrulama bağlantısı gönderilecektir.
+          E-posta doğrulama altyapısı hazırdır; canlı doğrulama özel domain
+          yapılandırması sonrası aktif edilir.
         </p>
 
         <button

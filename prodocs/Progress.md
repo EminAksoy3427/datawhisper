@@ -1,5 +1,11 @@
 # DataWhisper Progress Log
 
+## 2026-06-14 (Auth UI without verified email domain)
+
+### Completed
+
+- Adjusted auth UI for final delivery without a verified email domain: kept password reset and email verification infrastructure, but avoided misleading live email-sending claims in the UI.
+
 ## 2026-06-14 (Production-style auth improvements)
 
 ### Completed

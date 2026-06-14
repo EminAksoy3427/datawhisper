@@ -394,7 +394,8 @@ En çok iade edilen ürünler hangileri?
 - Supabase PostgreSQL credentials are stored only in backend environment variables.
 - Frontend never receives private API keys or database credentials.
 - JWT is used for protected API routes.
-- Password reset and email verification use hashed, single-use, time-limited tokens sent via Resend.
+- Password reset and email verification infrastructure uses hashed, single-use, time-limited tokens and Resend on the backend.
+- Live password reset and verification emails require a verified email domain and provider configuration (`RESEND_API_KEY`, `EMAIL_FROM`, `FRONTEND_URL`); until then, the UI does not promise active email delivery.
 - Uploaded files are analyzed for insights and are not permanently stored in the MVP version.
 
 ---
@@ -403,6 +404,7 @@ En çok iade edilen ürünler hangileri?
 
 ### Version 2
 
+- Verified email domain and live password reset / email verification delivery
 - User analysis history
 - Saved reports
 - PDF export

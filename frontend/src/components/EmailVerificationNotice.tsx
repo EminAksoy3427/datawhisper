@@ -4,6 +4,7 @@ import { FormAlert } from '@/components/FormAlert'
 import { useAuth } from '@/context/AuthContext'
 import { getApiErrorMessage } from '@/lib/apiError'
 
+// Enable in DashboardPage after Resend domain verification and live email delivery are configured.
 export function EmailVerificationNotice() {
   const { user, refreshUser } = useAuth()
   const [message, setMessage] = useState<string | null>(null)
