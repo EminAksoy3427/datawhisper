@@ -1,13 +1,12 @@
 import type { BusinessSummary } from '@/api/types/data'
-import { formatCurrency, formatNumber, formatPercent } from '@/lib/format'
+import { formatCurrency, formatPercent } from '@/lib/format'
 
 type AnalysisStatusCardProps = {
   summary: BusinessSummary
 }
 
 function buildStatusSentence(summary: BusinessSummary): string {
-  const { metrics, row_count } = summary
-  const rowLabel = `${formatNumber(row_count)} satır`
+  const { metrics } = summary
 
   const hasAnyMetric =
     metrics.total_revenue !== null ||
@@ -15,7 +14,7 @@ function buildStatusSentence(summary: BusinessSummary): string {
     metrics.profit_margin !== null
 
   if (!hasAnyMetric) {
-    return `${rowLabel} işlendi. İş metrikleri için gelir, maliyet veya iade sütunlarına ihtiyacımız var.`
+    return 'Veriler işlendi. İş metrikleri için gelir, maliyet veya iade sütunlarına ihtiyacımız var.'
   }
 
   const parts: string[] = []
@@ -27,9 +26,10 @@ function buildStatusSentence(summary: BusinessSummary): string {
   }
 
   if (parts.length === 0) {
-    return `${rowLabel} yüklendi; özet metrikler hazır.`
+    return 'Veriler yüklendi; özet metrikler hazır.'
   }
-  return `${rowLabel} yüklendi — ${parts.join(', ')}.`
+
+  return `Veriler yüklendi — ${parts.join(', ')}.`
 }
 
 type StatPillProps = {
@@ -49,7 +49,7 @@ function StatPill({ label, value }: StatPillProps) {
 }
 
 export function AnalysisStatusCard({ summary }: AnalysisStatusCardProps) {
-  const { metrics, row_count } = summary
+  const { metrics } = summary
 
   return (
     <section className="min-w-0 rounded-[var(--radius-dw)] border border-emerald-200 bg-emerald-50 p-4 shadow-sm sm:p-5">
@@ -68,8 +68,7 @@ export function AnalysisStatusCard({ summary }: AnalysisStatusCardProps) {
         </span>
       </header>
 
-      <div className="mt-3 grid grid-cols-2 gap-2 lg:grid-cols-4">
-        <StatPill label="Satır sayısı" value={formatNumber(row_count)} />
+      <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-3">
         <StatPill
           label="Toplam gelir"
           value={formatCurrency(metrics.total_revenue)}
